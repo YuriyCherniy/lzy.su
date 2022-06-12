@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<script src="https://rawcdn.githack.com/zenorocha/clipboard.js/v2.0.10/dist/clipboard.min.js"></script>
+
+<script>
+    var clipboard = new ClipboardJS('.btn');
+
+    clipboard.on('success', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+    });
+
+    clipboard.on('error', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+    });
+</script>
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-6">
+            <h1 class="text-center mt-2 mt-lg-5 mb-lg-4">LazyUrl</h1>
+            <div class="input-group mb-3">
+                <input id="foo" type="text" class="form-control"
+                    value="{{ request.scheme }}://{{ request.get_host }}/{{ url.short_url }}">
+                <button class="btn btn-primary" type="button" id="button-addon2"
+                    data-clipboard-target="#foo">Copy</button>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-lg-center mb-2">
+        <div class="col-lg-6">
+            Password to delete short url: <b>{{ url.password }}</b>
+        </div>
+    </div>
+    <div class="row justify-content-lg-center mb-2">
+        <div class="col-lg-6">
+            To delete url type in address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ url.short_url }}<span class="text-danger">/{{ url.password }}</span></b>
+        </div>
+    </div>
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-6">
+            To get statistic, type in address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ url.short_url }}<span class="text-danger">/s</span></b>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content%}
