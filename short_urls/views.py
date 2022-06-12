@@ -1,11 +1,8 @@
-from audioop import reverse
 from random import randint
 
 from django.views import View
-from django.views.generic import TemplateView
 from django.core.validators import URLValidator, ValidationError
-from django.shortcuts import redirect, render
-from django.urls import reverse_lazy, resolve
+from django.shortcuts import render
 
 from short_urls.models import Url
 from short_urls.hashids import Hashids
