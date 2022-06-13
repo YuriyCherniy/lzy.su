@@ -22,4 +22,5 @@ urlpatterns = [
         r"^(?P<url>http[s]{0,1}://[[\]A-Za-zА-Яа-я0-9-._~:/?#@!$&'()*+,;=]{,2000})$",
         include('short_urls.urls')
     ),
+    path('<str:short_url>/', include('short_urls.urls')),
 ]
