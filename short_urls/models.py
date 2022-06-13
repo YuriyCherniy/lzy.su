@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Url(models.Model):
-    url = models.URLField()
+    long_url = models.URLField()
     short_url = models.URLField()
     password = models.IntegerField()
     click = models.IntegerField(default=0)
