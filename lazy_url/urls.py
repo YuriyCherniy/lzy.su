@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 
-from short_urls.views import UrlOpen, UrlCreate, UrlInformation
+from short_urls.views import UrlOpen, UrlCreate, UrlInformation, UrlDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,5 @@ urlpatterns = [
     ),
     path('<str:short_url>/', UrlOpen.as_view()),
     path('<str:short_url>/i', UrlInformation.as_view()),
+    path('<str:short_url>/<int:password>', UrlDelete.as_view()),
 ]

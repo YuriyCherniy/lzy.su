@@ -4,7 +4,7 @@ from django.views import View
 from django.db.models import F
 from django.views.generic import TemplateView
 from django.core.validators import URLValidator, ValidationError
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 
 from short_urls.models import Url
 from short_urls.hashids import Hashids
@@ -29,10 +29,22 @@ class UrlCreate(View):
         return render(request, 'short_urls/url_create.html', {'url_obj': url_obj})
 
 
+class UrlDelete(View):
+    def get(self, request, **kwargs):
+        password = kwargs.get('password')
+        short_url = kwargs.get('short_url')
+        url_obj = get_object_or_404(Url, short_url=short_url)
+
+        if url_obj.password == password:
+            url_obj.delete()
+            return render(request, 'short_urls/url_delete.html')
+        return render(request, 'short_urls/url_delete_error.html')
+
+
 class UrlOpen(View):
     def get(self, request, **kwargs):
         short_url = kwargs.get('short_url')
-        url_obj = Url.objects.get(short_url=short_url)
+        url_obj = get_object_or_404(Url, short_url=short_url)
         url_obj.click = F('click') + 1
         url_obj.save()
         return redirect(url_obj.long_url)
@@ -42,7 +54,8 @@ class UrlInformation(TemplateView):
     template_name = 'short_urls/url_information.html'
 
     def get_context_data(self, **kwargs):
-        url_obj = Url.objects.get(short_url=kwargs.get('short_url'))
+        short_url = kwargs.get('short_url')
+        url_obj = get_object_or_404(Url, short_url=short_url)
         context = {
             'url_click': url_obj.click,
             'url_created': url_obj.created,
