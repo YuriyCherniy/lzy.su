@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-6">
+            <h1 class="text-center mt-2 mt-lg-5 mb-lg-4 text-primary">LazyUrl</h1>   
+        </div>
+    </div>
+    <div class="row justify-content-lg-center mb-2">
+        <div class="col-lg-7">
+            <span class="text-justify">{{ text|safe }}</span>
+        </div>
+    </div>
+</div>
+{% endblock content %}
