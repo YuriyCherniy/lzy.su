@@ -4,12 +4,30 @@
 <div class="container">
     <div class="row justify-content-lg-center">
         <div class="col-lg-6">
-            <h1 class="text-center mt-2 mt-lg-5 mb-lg-4 text-primary">LazyUrl</h1>   
+            <h1 class="text-center mt-2 mt-lg-5 mb-lg-4 text-primary">LazyUrl</h1>
         </div>
     </div>
-    <div class="row justify-content-lg-center mb-2">
+    <div class="row justify-content-lg-center mb-2 mb-5">
         <div class="col-lg-7">
             <span class="text-justify">{{ text|safe }}</span>
+        </div>
+    </div>
+</div>
+
+
+<br>
+<br>
+
+<div class="row justify-content-lg-center mx-3 mx-lg-0 mt-5">
+    <div class="col-lg-6">
+        <div class="text-center">
+            <small>If you do not like the new way to create short URLs, here is the old one to match your
+                habits.</small>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Paste long URL" aria-label="Paste long URL"
+                aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="button" id="button-addon2">Create</button>
         </div>
     </div>
 </div>
