@@ -54,11 +54,12 @@ class UrlInformation(TemplateView):
     template_name = 'short_urls/url_information.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         short_url = kwargs.get('short_url')
         url_obj = get_object_or_404(Url, short_url=short_url)
-        context = {
+        context.update({
             'url_click': url_obj.click,
             'url_created': url_obj.created,
             'long_url': url_obj.long_url
-        }
+        })
         return context
