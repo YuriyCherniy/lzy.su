@@ -37,7 +37,9 @@ class UrlCreate(View):
         except ValidationError:
             return render(request, 'short_urls/url_create_error.html')
         request.session.update({
-            'long_url': url_obj.long_url, 'short_url': url_obj.short_url, 'password': url_obj.password
+            'long_url': url_obj.long_url,
+            'short_url': url_obj.short_url,
+            'password': url_obj.password
         })
         return redirect('url-create-success')
 
