@@ -15,8 +15,8 @@ class UrlCreateSuccess(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        d = {k: self.request.session.get(k) for k in self.request.session.keys()}
-        context.update(d)
+        context_data = {k: self.request.session.get(k) for k in self.request.session.keys()}
+        context.update(context_data)
         return context
 
 
