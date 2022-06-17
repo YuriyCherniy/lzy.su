@@ -9,4 +9,4 @@ class Url(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.url
+        return self.long_url
