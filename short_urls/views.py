@@ -10,6 +10,16 @@ from short_urls.models import Url
 from short_urls.hashids import Hashids
 
 
+class UrlCreateSuccess(TemplateView):
+    template_name: str = 'short_urls/url_create.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = {k: self.request.session.get(k) for k in self.request.session.keys()}
+        context.update(d)
+        return context
+
+
 class UrlCreate(View):
     hashids = Hashids()
     validate_url = URLValidator()
@@ -26,7 +36,10 @@ class UrlCreate(View):
             )
         except ValidationError:
             return render(request, 'short_urls/url_create_error.html')
-        return render(request, 'short_urls/url_create.html', {'url_obj': url_obj})
+        request.session.update({
+            'long_url': url_obj.long_url, 'short_url': url_obj.short_url, 'password': url_obj.password
+        })
+        return redirect('url-create-success')
 
 
 class UrlDelete(View):
@@ -62,4 +75,5 @@ class UrlInformation(TemplateView):
             'url_created': url_obj.created,
             'long_url': url_obj.long_url
         })
+        print(context)
         return context
