@@ -26,7 +26,7 @@
             <h1 class="text-center text-primary mt-2 mt-lg-5 mb-lg-4">LazyUrl</h1>
             <div class="input-group mb-3">
                 <input id="foo" type="text" class="form-control"
-                    value="{{ request.scheme }}://{{ request.get_host }}/{{ url_obj.short_url }}">
+                    value="{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}">
                 <button class="btn btn-primary" type="button" id="button-addon2"
                     data-clipboard-target="#foo">Copy</button>
             </div>
@@ -34,17 +34,17 @@
     </div>
     <div class="row justify-content-lg-center mb-2">
         <div class="col-lg-6">
-            Password to delete short url: <b>{{ url_obj.password }}</b>
+            Password to delete short url: <b>{{ password }}</b>
         </div>
     </div>
     <div class="row justify-content-lg-center mb-2">
         <div class="col-lg-6">
-            To delete url type in address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ url_obj.short_url }}<span class="text-danger">/{{ url_obj.password }}</span></b>
+            To delete url type in address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/{{ password }}</span></b>
         </div>
     </div>
     <div class="row justify-content-lg-center">
         <div class="col-lg-6">
-            To get information, type in address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ url_obj.short_url }}<span class="text-danger">/i</span></b>
+            To get information, type in address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/i</span></b>
         </div>
     </div>
 </div>
