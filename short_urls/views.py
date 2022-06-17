@@ -51,7 +51,7 @@ class UrlDelete(View):
         if url_obj.password == password:
             url_obj.delete()
             return render(request, 'short_urls/url_delete.html')
-        return render(request, 'short_urls/url_delete_error.html')
+        return render(request, 'short_urls/url_error.html')
 
 
 class UrlOpen(View):
@@ -66,14 +66,19 @@ class UrlOpen(View):
 class UrlInformation(TemplateView):
     template_name = 'short_urls/url_information.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get(self, request, **kwargs):
         short_url = kwargs.get('short_url')
         url_obj = get_object_or_404(Url, short_url=short_url)
+        if kwargs.get('password') == url_obj.password:
+            self.url_obj = url_obj
+            return super().get(request, kwargs)
+        return render(request, 'short_urls/url_error.html')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context.update({
-            'url_click': url_obj.click,
-            'url_created': url_obj.created,
-            'long_url': url_obj.long_url
+            'url_click': self.url_obj.click,
+            'url_created': self.url_obj.created,
+            'long_url': self.url_obj.long_url
         })
-        print(context)
         return context
