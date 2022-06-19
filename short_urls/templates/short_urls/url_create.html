@@ -22,7 +22,7 @@
 </script>
 <div class="container">
     <div class="row justify-content-lg-center">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <h1 class="text-center mt-4 mb-4 mt-lg-5 mb-lg-4 text-primary">LazyUrl</h1>
             <div class="input-group mb-4">
                 <input id="foo" type="text" class="form-control"
@@ -33,18 +33,18 @@
         </div>
     </div>
     <div class="row justify-content-lg-center mb-3">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             Password to delete short url: <b>{{ password }}</b>
         </div>
     </div>
     <div class="row justify-content-lg-center mb-3">
-        <div class="col-lg-6">
-            To delete url type in the address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/{{ password }}</span></b>
+        <div class="col-lg-7">
+            To delete url type in the address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/d/{{ password }}</span></b>
         </div>
     </div>
     <div class="row justify-content-lg-center">
-        <div class="col-lg-6">
-            To get information, type in the address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/i</span></b>
+        <div class="col-lg-7">
+            To get information, type in the address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/i/{{ password }}</span></b>
         </div>
     </div>
 </div>
