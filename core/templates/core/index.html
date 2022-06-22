@@ -27,7 +27,7 @@
         <form action="{% url 'url-create-by-form' %}" method="POST">
             {% csrf_token %}
             <div class="input-group">
-                <input type="text" maxlength="2048" name="long_url" class="form-control" placeholder="Paste long URL">
+                <input required type="url" maxlength="2048" name="long_url" class="form-control" placeholder="Paste long URL">
                 <button class="btn btn-primary" type="submit">Create</button>
             </div>
         </form>
