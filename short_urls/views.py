@@ -10,7 +10,7 @@ from short_urls.services import create_url_object
 
 
 class UrlCreateSuccess(TemplateView):
-    template_name: str = 'short_urls/url_create.html'
+    template_name = 'short_urls/url_create.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
