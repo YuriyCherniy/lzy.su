@@ -1,5 +1,3 @@
-from random import randint
-
 from django.views import View
 from django.db.models import F
 from django.views.generic import TemplateView
@@ -7,7 +5,8 @@ from django.core.validators import URLValidator, ValidationError
 from django.shortcuts import redirect, render, get_object_or_404
 
 from short_urls.models import Url
-from short_urls.hashids import Hashids
+from short_urls.forms import UrlCreateForm
+from short_urls.services import create_url_object
 
 
 class UrlCreateSuccess(TemplateView):
@@ -21,27 +20,39 @@ class UrlCreateSuccess(TemplateView):
 
 
 class UrlCreate(View):
-    hashids = Hashids()
     validate_url = URLValidator()
 
     def get(self, request, **kwargs):
-        url = kwargs.get('url', '')
+        long_url = kwargs.get('url', '')
         try:
-            self.validate_url(url)
-            short_url = self.hashids.encode(Url.objects.last().pk + 1)
-            url_obj = Url.objects.create(
-                long_url=url,
-                short_url=short_url,
-                password=randint(10000, 99999)
-            )
+            self.validate_url(long_url)
+            url_obj = create_url_object(long_url)
+            request.session.update({
+                'long_url': url_obj.long_url,
+                'short_url': url_obj.short_url,
+                'password': url_obj.password
+            })
+            return redirect('url-create-success')
         except ValidationError:
             return render(request, 'short_urls/url_create_error.html')
-        request.session.update({
-            'long_url': url_obj.long_url,
-            'short_url': url_obj.short_url,
-            'password': url_obj.password
-        })
-        return redirect('url-create-success')
+
+
+class UrlCreateByForm(View):
+    def post(self, request):
+        form = UrlCreateForm(request.POST)
+        if form.is_valid():
+            long_url = form.cleaned_data.get('long_url')
+            url_obj = create_url_object(long_url)
+            request.session.update({
+                'long_url': url_obj.long_url,
+                'short_url': url_obj.short_url,
+                'password': url_obj.password
+            })
+            return redirect('url-create-success')
+
+        with open('core/static/text.txt', 'r') as f:
+            text = f.read()
+        return render(request, 'core/index.html', {'form': form, 'text': text})
 
 
 class UrlDelete(View):
