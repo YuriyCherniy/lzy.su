@@ -10,6 +10,10 @@ from short_urls.services import create_url_object
 
 
 class UrlCreateSuccess(TemplateView):
+    """
+    View to redirect after successful creation short url.
+    Necessary for elegant URL scheme.
+    """
     template_name = 'short_urls/url_create.html'
 
     def get_context_data(self, **kwargs):
@@ -20,6 +24,9 @@ class UrlCreateSuccess(TemplateView):
 
 
 class UrlCreate(View):
+    """
+    Create short url when user has typed command in browser's address bar
+    """
     validate_url = URLValidator()
 
     def get(self, request, **kwargs):
@@ -38,6 +45,9 @@ class UrlCreate(View):
 
 
 class UrlCreateByForm(View):
+    """
+    Create short url the old way by HTML form
+    """
     def post(self, request):
         form = UrlCreateForm(request.POST)
         if form.is_valid():
@@ -55,19 +65,10 @@ class UrlCreateByForm(View):
         return render(request, 'core/index.html', {'form': form, 'text': text})
 
 
-class UrlDelete(View):
-    def get(self, request, **kwargs):
-        password = kwargs.get('password')
-        short_url = kwargs.get('short_url')
-        url_obj = get_object_or_404(Url, short_url=short_url)
-
-        if url_obj.password == password:
-            url_obj.delete()
-            return render(request, 'short_urls/url_delete.html')
-        return render(request, 'short_urls/url_error.html')
-
-
 class UrlOpen(View):
+    """
+    Open short url and increment click counter
+    """
     def get(self, request, **kwargs):
         short_url = kwargs.get('short_url')
         url_obj = get_object_or_404(Url, short_url=short_url)
@@ -77,6 +78,12 @@ class UrlOpen(View):
 
 
 class UrlInformation(TemplateView):
+    """
+    Show short url's information when user has typed command in browser's address bar:
+    https://lzy.su/<short_url_id>/<command>/<password>
+    For example: https://lzy.su/Aq6/i/46754
+    Command 'i' in the url means - Information
+    """
     template_name = 'short_urls/url_information.html'
 
     def get(self, request, **kwargs):
@@ -95,3 +102,21 @@ class UrlInformation(TemplateView):
             'long_url': self.url_obj.long_url
         })
         return context
+
+
+class UrlDelete(View):
+    """
+    Delete short url when user has typed command in browser's address bar:
+    https://lzy.su/<short_url_id>/<command>/<password>
+    For example: https://lzy.su/Aq6/d/46754
+    Command 'd' in the url means - Delete
+    """
+    def get(self, request, **kwargs):
+        password = kwargs.get('password')
+        short_url = kwargs.get('short_url')
+        url_obj = get_object_or_404(Url, short_url=short_url)
+
+        if url_obj.password == password:
+            url_obj.delete()
+            return render(request, 'short_urls/url_delete.html')
+        return render(request, 'short_urls/url_error.html')
