@@ -8,7 +8,7 @@ hashids = Hashids()
 
 
 def create_url_object(long_url):
-    """Genirates short url and creates Url object"""
+    """Genirate a short url identifier and create Url object"""
 
     short_url = hashids.encode(Url.objects.last().pk + 1)
     url_obj = Url.objects.create(

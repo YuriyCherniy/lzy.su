@@ -84,7 +84,7 @@ class UrlOpen(View):
 class UrlInformation(TemplateView):
     """
     Show short url's information when user has typed command in browser's address bar:
-    https://lzy.su/<short_url_id>/<command>/<password>
+    https://lzy.su/<short_url_identifier>/<command>/<password>
     For example: https://lzy.su/Aq6/i/46754
     Command 'i' in the url means - Information
     """
@@ -111,7 +111,7 @@ class UrlInformation(TemplateView):
 class UrlDelete(View):
     """
     Delete short url when user has typed command in browser's address bar:
-    https://lzy.su/<short_url_id>/<command>/<password>
+    https://lzy.su/<short_url_identifier>/<command>/<password>
     For example: https://lzy.su/Aq6/d/46754
     Command 'd' in the url means - Delete
     """
