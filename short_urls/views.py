@@ -11,7 +11,7 @@ from short_urls.services import create_url_object
 
 class UrlCreateSuccess(TemplateView):
     """
-    View to redirect after successful creation short url.
+    View to redirect after successful creation a short url.
     Necessary for elegant URL scheme.
     """
     template_name = 'short_urls/url_create.html'
@@ -34,6 +34,8 @@ class UrlCreate(View):
         try:
             self.validate_url(long_url)
             url_obj = create_url_object(long_url)
+
+            # prepare dict to pass to UrlCreateSuccess for context data
             request.session.update({
                 'long_url': url_obj.long_url,
                 'short_url': url_obj.short_url,
@@ -53,6 +55,8 @@ class UrlCreateByForm(View):
         if form.is_valid():
             long_url = form.cleaned_data.get('long_url')
             url_obj = create_url_object(long_url)
+
+            # prepare dict to pass to UrlCreateSuccess for context data
             request.session.update({
                 'long_url': url_obj.long_url,
                 'short_url': url_obj.short_url,
