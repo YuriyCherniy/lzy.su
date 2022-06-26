@@ -96,7 +96,7 @@ class UrlInformation(TemplateView):
         if kwargs.get('password') == url_obj.password:
             self.url_obj = url_obj
             return super().get(request, kwargs)
-        return render(request, 'short_urls/url_error.html')
+        return render(request, 'short_urls/url_password_error.html')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,4 +123,4 @@ class UrlDelete(View):
         if url_obj.password == password:
             url_obj.delete()
             return render(request, 'short_urls/url_delete.html')
-        return render(request, 'short_urls/url_error.html')
+        return render(request, 'short_urls/url_password_error.html')
