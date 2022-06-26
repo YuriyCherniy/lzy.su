@@ -76,7 +76,7 @@ class UrlOpen(View):
     def get(self, request, **kwargs):
         short_url = kwargs.get('short_url')
         url_obj = get_object_or_404(Url, short_url=short_url)
-        url_obj.click = F('click') + 1
+        url_obj.clicks = F('clicks') + 1
         url_obj.save()
         return redirect(url_obj.long_url)
 
@@ -103,7 +103,7 @@ class UrlInformation(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'url_click': self.url_obj.click,
+            'url_clicks': self.url_obj.clicks,
             'url_created': self.url_obj.created,
             'long_url': self.url_obj.long_url
         })
