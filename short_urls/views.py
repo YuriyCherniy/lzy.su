@@ -94,7 +94,9 @@ class UrlInformation(TemplateView):
     template_name = 'short_urls/url_information.html'
 
     def get(self, request, **kwargs):
-        """Check permission by password and do appropriate action"""
+        """
+        Check permission by password and do appropriate action
+        """
         short_url = kwargs.get('short_url')
         url_obj = get_object_or_404(Url, short_url=short_url)
 
@@ -121,7 +123,9 @@ class UrlDelete(View):
     Command 'd' in the url means - Delete
     """
     def get(self, request, **kwargs):
-        """Check permission by password and do appropriate action"""
+        """
+        Check permission by password and do appropriate action
+        """
         password = kwargs.get('password')
         short_url = kwargs.get('short_url')
         url_obj = get_object_or_404(Url, short_url=short_url)
