@@ -6,7 +6,7 @@ class Url(models.Model):
     short_url = models.URLField()
     password = models.IntegerField()
     clicks_per_day = models.IntegerField(default=0)  # not implemented yet
-    click = models.IntegerField(default=0)
+    clicks = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
