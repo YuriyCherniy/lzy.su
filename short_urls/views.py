@@ -14,7 +14,7 @@ class UrlCreateSuccess(TemplateView):
     View to redirect after successful creation a short url.
     Necessary for elegant URL scheme.
     """
-    template_name = 'short_urls/url_create.html'
+    template_name = 'short_urls/url_create_success.html'
 
     def get_context_data(self, **kwargs):
         """
