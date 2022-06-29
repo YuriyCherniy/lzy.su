@@ -27,7 +27,7 @@ urlpatterns = [
     ),
     path('create/', UrlCreateByForm.as_view(), name='url-create-by-form'),
     path('success/', UrlCreateSuccess.as_view(), name='url-create-success'),
-    path('<str:short_url>/', UrlOpen.as_view()),
-    path('<str:short_url>/i/<int:password>/', UrlInformation.as_view()),
-    path('<str:short_url>/d/<int:password>/', UrlDelete.as_view()),
+    path('<str:short_url>/', UrlOpen.as_view(), name='url-open'),
+    path('<str:short_url>/i/<int:password>/', UrlInformation.as_view(), name='url-information'),
+    path('<str:short_url>/d/<int:password>/', UrlDelete.as_view(), name='url-delete'),
 ]
