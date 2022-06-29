@@ -6,6 +6,7 @@ from short_urls.views import UrlOpen, UrlInformation
 
 
 class ShortUrlViewTestCase(TestCase):
+
     def setUp(self):
         self.c = Client()
 
