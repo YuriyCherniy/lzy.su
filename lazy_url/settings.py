@@ -10,20 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+import environ
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+env_file = os.path.join(BASE_DIR, '.env')
+environ.Env.read_env(env_file)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!6wr1m3(ebvc3mw8wx1vqp*3(t!do*97d#5eagc_-ib&=f@01!'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -80,9 +88,9 @@ WSGI_APPLICATION = 'lazy_url.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lazy_url_db',
-        'USER': 'lazy_url_user',
-        'PASSWORD': '0000',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_USER_PASSWORD'),
         'HOST': 'localhost',
         'PORT': 5432,
     }
