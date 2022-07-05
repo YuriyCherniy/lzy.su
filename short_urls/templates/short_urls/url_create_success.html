@@ -33,17 +33,17 @@
         </div>
     </div>
     <div class="row justify-content-lg-center mb-3">
-        <div class="col-lg-7">
+        <div class="col-lg-7 text-center text-lg-left">
             Password to manage the short url: <b>{{ password }}</b>
         </div>
     </div>
     <div class="row justify-content-lg-center mb-3">
-        <div class="col-lg-7">
+        <div class="col-lg-7 text-center text-lg-left">
             To delete the URL type in the address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/d/{{ password }}</span></b>
         </div>
     </div>
     <div class="row justify-content-lg-center">
-        <div class="col-lg-7">
+        <div class="col-lg-7 text-center text-lg-left">
             To get information, type in the address bar: <b>{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}<span class="text-danger">/i/{{ password }}</span></b>
         </div>
     </div>
