@@ -2,7 +2,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from short_urls.models import Url
-from short_urls.views import UrlOpen, UrlInformation
+from short_urls.views import UrlOpen
 
 
 class ShortUrlViewTestCase(TestCase):
