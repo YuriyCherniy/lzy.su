@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'admin_honeypot',
+
     'core',
     'users',
     'short_urls',
@@ -150,3 +152,5 @@ AUTH_USER_MODEL = 'users.LazyUser'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+SECRET_ADMIN_URL = env('SECRET_ADMIN_URL')

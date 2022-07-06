@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.conf import settings
 
 from short_urls.views import UrlOpen, UrlCreate, UrlInformation, UrlDelete, UrlCreateSuccess, UrlCreateByForm
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path(f'{settings.SECRET_ADMIN_URL}/', admin.site.urls),
     path('', include('core.urls')),
     re_path(
         r"^(?P<url>http[s]{0,1}://[[\]A-Za-zА-Яа-я0-9-._~:/?#@!$&'()*+,;=]{,2000})$",
