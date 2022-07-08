@@ -1,0 +1,18 @@
+<div class="row justify-content-lg-center mx-3 mx-lg-0 mt-4">
+    <div class="col-lg-6">
+        <div class="text-center">
+            <small>If you do not like the new way to create short URLs, here is the old one to match your
+                habits.</small>
+        </div>
+        <form action="{% url 'url-create-by-form' %}" method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <input required type="url" maxlength="2048" name="long_url" class="form-control" placeholder="Paste long URL">
+                <button class="btn btn-primary" type="submit">Create</button>
+            </div>
+        </form>
+        {% if form.errors %}
+        <small class="text-danger"><strong>{{ form.long_url.errors.as_text }}</strong></small>
+        {% endif %}
+    </div>
+</div>
