@@ -27,7 +27,7 @@
 <div class="container">
     <div class="row justify-content-lg-center">
         <div class="col-lg-7">
-            <h1 class="text-center mt-4 mb-4 mt-lg-5 mb-lg-4 text-primary">LazyUrl</h1>
+            <h1 class="text-center mt-4 mb-4 mt-lg-5 mb-lg-4"><a href="{% url 'index-view' %}">LazyUrl</a></h1>
             <div class="input-group mb-4">
                 <input id="foo" type="text" class="form-control"
                     value="{{ request.scheme }}://{{ request.get_host }}/{{ short_url }}">
