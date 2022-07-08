@@ -42,7 +42,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['lzy.su']
 
 
 # Application definition
