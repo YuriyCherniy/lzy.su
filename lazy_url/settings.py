@@ -40,9 +40,9 @@ if not DEBUG:
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-    ALLOWED_HOSTS = ['*']
-else:
     ALLOWED_HOSTS = ['lzy.su']
+else:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
