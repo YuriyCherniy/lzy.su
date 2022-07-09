@@ -78,7 +78,7 @@ class UrlOpen(View):
     """
     def get(self, request, **kwargs):
         short_url = kwargs.get('short_url')
-        url_obj = get_object_or_404(Url, short_url=short_url)
+        url_obj = get_object_or_404(Url, short_url=short_url, is_active=True)
         url_obj.clicks = F('clicks') + 1
         url_obj.save()
         return redirect(url_obj.long_url)
@@ -131,6 +131,7 @@ class UrlDelete(View):
         url_obj = get_object_or_404(Url, short_url=short_url)
 
         if url_obj.password == password:
-            url_obj.delete()
+            url_obj.is_active = False
+            url_obj.save()
             return render(request, 'short_urls/url_delete.html')
         return render(request, 'short_urls/url_password_error.html')

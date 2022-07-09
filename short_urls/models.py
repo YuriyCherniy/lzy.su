@@ -7,6 +7,7 @@ class Url(models.Model):
     password = models.IntegerField()
     clicks_per_day = models.IntegerField(default=0)  # not implemented yet
     clicks = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

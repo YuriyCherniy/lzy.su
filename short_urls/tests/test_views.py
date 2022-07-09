@@ -146,3 +146,12 @@ class ShortUrlViewTestCase(TestCase):
         self.assertEqual(response.context_data.get('url_clicks'), url_obj.clicks)
         self.assertEqual(response.context_data.get('long_url'), url_obj.long_url)
         self.assertEqual(response.context_data.get('url_created'), url_obj.created)
+
+    def test_url_delete_view_get_method(self):
+        url_obj = Url.objects.last()
+        self.c.get(
+            reverse('url-delete', kwargs={
+                'short_url': url_obj.short_url, 'password': url_obj.password
+            })
+        )
+        url_obj.refresh_from_db()
