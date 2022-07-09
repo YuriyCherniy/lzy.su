@@ -8,7 +8,7 @@ class Url(models.Model):
     clicks_per_day = models.IntegerField(default=0)  # not implemented yet
     clicks = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
-    user_ip = models.GenericIPAddressField(unpack_ipv4=True)
+    # user_ip = models.GenericIPAddressField(unpack_ipv4=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
