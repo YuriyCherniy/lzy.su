@@ -8,8 +8,6 @@ hashids = Hashids()
 
 
 def create_url_object(long_url, request):
-    print(request.META.get('HTTP_X_REAL_IP', 'no HTTP_X_REAL_IP'), 'HTTP_X_REAL_IP')
-    print(request.META.get('REMOTE_ADDR', 'no REMOTE_ADDR'), 'REMOTE_ADDR')
     """Genirate a short url identifier and create Url object"""
 
     # genirate pk for first object in a new db
