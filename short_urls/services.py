@@ -21,6 +21,6 @@ def create_url_object(long_url, request):
         long_url=long_url,
         short_url=short_url,
         password=randint(10000, 99999),
-        user_ip=request.META['REMOTE_ADDR']
+        user_ip=request.META.get('HTTP_X_REAL_IP', '0.0.0.0')
     )
     return url_obj

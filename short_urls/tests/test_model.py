@@ -9,7 +9,8 @@ class UrlModelTestCase(TestCase):
         Url.objects.create(
             long_url='http://test.ru',
             short_url='test',
-            password=00000
+            password=00000,
+            user_ip='0.0.0.0'
         )
 
     def test_url_model_str_method(self):

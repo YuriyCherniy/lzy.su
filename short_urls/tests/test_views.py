@@ -12,7 +12,7 @@ class ShortUrlViewTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        Url.objects.create(long_url='http://site.ru', short_url='hf6', password=0000)
+        Url.objects.create(long_url='http://site.ru', short_url='hf6', password=0000, user_ip='0.0.0.0')
 
     # status code 200 tests
     def test_url_cuccess_create_view_status_code_200(self):
