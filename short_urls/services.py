@@ -12,7 +12,7 @@ def create_url_object(long_url, request):
     print(request.META.get('REMOTE_ADDR', 'no REMOTE_ADDR'), 'REMOTE_ADDR')
     """Genirate a short url identifier and create Url object"""
 
-    # genirate pk for first object in new db
+    # genirate pk for first object in a new db
     try:
         pk_for_hash = Url.objects.last().pk + 1
     except Url.DoesNotExist:
