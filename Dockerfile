@@ -1,4 +1,4 @@
-FROM python:3.9.5-slim
+FROM python:3.10.5-slim
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY requirements/base.txt base.txt
