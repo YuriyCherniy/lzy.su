@@ -1,8 +1,7 @@
 from random import randint
 
-from short_urls.models import Url
 from short_urls.hashids import Hashids
-
+from short_urls.models import Url
 
 hashids = Hashids()
 

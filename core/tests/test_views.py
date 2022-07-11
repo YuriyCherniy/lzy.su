@@ -1,5 +1,5 @@
-from django.test import TestCase, Client
 from django.shortcuts import reverse
+from django.test import Client, TestCase
 
 
 class IndexViewTestCase(TestCase):

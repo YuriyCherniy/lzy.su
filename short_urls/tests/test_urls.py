@@ -1,7 +1,8 @@
 from django.test import SimpleTestCase
-from django.urls import reverse, resolve
+from django.urls import resolve, reverse
 
-from short_urls.views import UrlCreateByForm, UrlCreateSuccess, UrlOpen, UrlInformation, UrlDelete, UrlCreate
+from short_urls.views import (UrlCreate, UrlCreateByForm, UrlCreateSuccess,
+                              UrlDelete, UrlInformation, UrlOpen)
 
 
 class UrlPathTestCase(SimpleTestCase):

@@ -1,11 +1,11 @@
-from django.views import View
-from django.db.models import F
-from django.views.generic import TemplateView
 from django.core.validators import URLValidator, ValidationError
-from django.shortcuts import redirect, render, get_object_or_404
+from django.db.models import F
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views import View
+from django.views.generic import TemplateView
 
-from short_urls.models import Url
 from short_urls.forms import UrlCreateForm
+from short_urls.models import Url
 from short_urls.services import create_url_object
 
 
