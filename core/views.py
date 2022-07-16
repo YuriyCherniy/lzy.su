@@ -9,3 +9,8 @@ class IndexView(TemplateView):
         with open('core/static/text.txt', 'r') as f:
             context['text'] = f.read()
         return context
+
+
+class RobotsTxt(TemplateView):
+    template_name = 'core/robots.txt'
+    content_type = 'text/plain'

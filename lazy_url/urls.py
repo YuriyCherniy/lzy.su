@@ -17,6 +17,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path, re_path
 
+from core.views import RobotsTxt
 from short_urls.views import (UrlCreate, UrlCreateByForm, UrlCreateSuccess,
                               UrlDelete, UrlInformation, UrlOpen)
 
@@ -33,4 +34,5 @@ urlpatterns = [
     path('<str:short_url>/', UrlOpen.as_view(), name='url-open'),
     path('<str:short_url>/i/<int:password>/', UrlInformation.as_view(), name='url-information'),
     path('<str:short_url>/d/<int:password>/', UrlDelete.as_view(), name='url-delete'),
+    path('robots.txt', RobotsTxt.as_view()),
 ]
