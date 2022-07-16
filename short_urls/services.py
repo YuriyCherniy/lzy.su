@@ -12,7 +12,7 @@ def create_url_object(long_url, request):
     # genirate pk for first object in a new db
     try:
         pk_for_hash = Url.objects.last().pk + 1
-    except Url.DoesNotExist:
+    except AttributeError:
         pk_for_hash = 1
 
     short_url = hashids.encode(pk_for_hash)
