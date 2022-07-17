@@ -1,4 +1,4 @@
-from django.core.validators import URLValidator, ValidationError
+from django.core.validators import ValidationError
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
@@ -7,6 +7,8 @@ from django.views.generic import TemplateView
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
 from short_urls.services import create_url_object
+from short_urls.validators import LzyURLValidator
+
 
 
 class UrlCreateSuccess(TemplateView):
@@ -30,7 +32,7 @@ class UrlCreate(View):
     """
     Create short url when user has typed command in browser's address bar
     """
-    validate_url = URLValidator()
+    validate_url = LzyURLValidator()
 
     def get(self, request, **kwargs):
         long_url = kwargs.get('url', '')
@@ -45,8 +47,10 @@ class UrlCreate(View):
                 'password': url_obj.password
             })
             return redirect('url-create-success')
-        except ValidationError:
-            return render(request, 'short_urls/url_create_error.html')
+        except ValidationError as e:
+            return render(
+                request, 'short_urls/url_create_error.html', context={'error': e.message}
+            )
 
 
 class UrlCreateByForm(View):
