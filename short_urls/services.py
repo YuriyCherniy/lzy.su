@@ -9,7 +9,7 @@ hashids = Hashids()
 def create_url_object(long_url, request):
     """Genirate a short url identifier and create Url object"""
 
-    # genirate pk for first object in a new db
+    # get last pk for hashing or genirate one for first object in a new db
     try:
         pk_for_hash = Url.objects.last().pk + 1
     except AttributeError:
