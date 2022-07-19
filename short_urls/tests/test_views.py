@@ -155,3 +155,19 @@ class ShortUrlViewTestCase(TestCase):
             })
         )
         url_obj.refresh_from_db()
+
+    def test_url_create_view_object_created(self):
+        self.c.get('/https://test-site.com')
+        self.assertEqual(Url.objects.count(), 2)
+
+    def test_url_create_view_object_not_created_domain_lzy_su_is_forbidden(self):
+        self.c.get('/https://lzy.su')
+        self.assertEqual(Url.objects.count(), 1)
+
+    def test_url_create_by_form_view_object_created(self):
+        self.c.post(reverse('url-create-by-form'), {'long_url': 'https://test-site.com'})
+        self.assertEqual(Url.objects.count(), 2)
+
+    def test_url_create_by_form_view_object_not_created_domain_lzy_su_is_forbidden(self):
+        self.c.post(reverse('url-create-by-form'), {'long_url': 'https://lzy.su'})
+        self.assertEqual(Url.objects.count(), 1)
