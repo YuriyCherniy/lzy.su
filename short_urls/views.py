@@ -39,7 +39,7 @@ class UrlCreate(View):
             self.validate_url(long_url)
             url_obj = create_url_object(long_url, request)
 
-            # prepare dict to pass to UrlCreateSuccess for context data
+            # prepare dict to pass to UrlCreateSuccess view for context data
             request.session.update({
                 'long_url': url_obj.long_url,
                 'short_url': url_obj.short_url,
