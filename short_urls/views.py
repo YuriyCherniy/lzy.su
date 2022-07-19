@@ -10,7 +10,6 @@ from short_urls.services import create_url_object
 from short_urls.validators import LzyURLValidator
 
 
-
 class UrlCreateSuccess(TemplateView):
     """
     View to redirect after successful creation a short url.

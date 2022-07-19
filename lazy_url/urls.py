@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.contrib import admin
-from django.urls import include, path, re_path
 from django.contrib.sitemaps.views import sitemap
+from django.urls import include, path, re_path
 
-from core.views import RobotsTxt
 from core.sitemap import IndexSiteMap
+from core.views import RobotsTxt
 from short_urls.views import (UrlCreate, UrlCreateByForm, UrlCreateSuccess,
                               UrlDelete, UrlInformation, UrlOpen)
 
