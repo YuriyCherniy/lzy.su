@@ -16,7 +16,7 @@
     </div>
     <div class="row justify-content-lg-center mb-2">
         <div class="col-lg-7">
-            <h6 class="text-center">Long URL: <a href="{{ long_url }}">{{ long_url }}</a></h6>
+            <h6 class="text-center">Long URL: <a href="{{ long_url }}">{{ long_url|truncatechars:45 }}</a></h6>
         </div>
     </div>
     <div class="row justify-content-lg-center mb-2">
@@ -24,5 +24,6 @@
             <h6 class="text-center">Clicks: {{ url_clicks }}</h6>
         </div>
     </div>
+
 </div>
 {% endblock content %}
