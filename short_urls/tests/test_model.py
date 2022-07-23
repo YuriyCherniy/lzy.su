@@ -15,4 +15,4 @@ class UrlModelTestCase(TestCase):
 
     def test_url_model_str_method(self):
         url_obj = Url.objects.get(short_url='test')
-        self.assertEqual(url_obj.__str__(), 'http://test.ru')
+        self.assertEqual(url_obj.__str__(), '[http://test.ru] from ip [0.0.0.0]')
