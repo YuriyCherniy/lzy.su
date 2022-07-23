@@ -24,7 +24,7 @@ Install dependencies:
 ```
 pip install -r requirements/dev.txt
 ```
-Rename ```.env.example``` to ```.env```
+Rename ```.env.example``` to ```.env```:
 ```
 mv .env.example .env
 ```
