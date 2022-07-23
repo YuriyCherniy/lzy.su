@@ -28,3 +28,10 @@ sudo -u postgres psql
 ```
 CREATE DATABASE lazy_url_db;
 ```
+```
+CREATE USER lazy_url_user WITH PASSWORD '0000';
+```
+```
+GRANT ALL PRIVILEGES ON DATABASE lazy_url_db TO lazy_url_user;
+```
+Exit Postgres console ```ctr+Z```
