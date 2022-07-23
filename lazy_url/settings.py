@@ -34,7 +34,7 @@ DEBUG = env.bool('DEBUG')
 
 # Security setting for production.
 if not DEBUG:
-    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_SECONDS = 31536000
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
