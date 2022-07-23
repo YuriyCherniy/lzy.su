@@ -12,4 +12,4 @@ class Url(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.long_url
+        return f'[{self.long_url[:40]}] from ip [{self.user_ip}]'
