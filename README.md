@@ -16,4 +16,15 @@ Clone repository:
 ```
 git clone https://github.com/YuriyCherniy/lzy.su.git
 ```
+Install dependencies:
+```
+pip install -r lzy.su/requirements/dev.txt
+```
 Rename .env.example to .env
+Create Postgres database:
+```
+sudo -u postgres psql
+```
+```
+CREATE DATABASE lazy_url_db;
+```
