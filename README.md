@@ -16,9 +16,13 @@ Clone repository:
 ```
 git clone https://github.com/YuriyCherniy/lzy.su.git
 ```
+cd to working directory:
+```
+cd lzy.su/
+```
 Install dependencies:
 ```
-pip install -r lzy.su/requirements/dev.txt
+pip install -r requirements/dev.txt
 ```
 Rename ```.env.example``` to ```.env```
 
