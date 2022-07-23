@@ -12,3 +12,7 @@ Activate virtual environment:
 ```
 source .venv/bin/activate
 ```
+Clone repository:
+```
+git clone https://github.com/YuriyCherniy/lzy.su.git
+```
