@@ -20,7 +20,7 @@ Install dependencies:
 ```
 pip install -r lzy.su/requirements/dev.txt
 ```
-Rename .env.example to .env
+Rename ```.env.example``` to ```.env```
 Create Postgres database:
 ```
 sudo -u postgres psql
