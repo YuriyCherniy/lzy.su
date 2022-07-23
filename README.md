@@ -52,3 +52,7 @@ Migrate:
 ```
 ./manage.py migrate
 ```
+Create a superuser:
+```
+./manage.py createsuperuser
+```
