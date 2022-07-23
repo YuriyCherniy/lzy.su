@@ -56,3 +56,7 @@ Create a superuser:
 ```
 ./manage.py createsuperuser
 ```
+Run server:
+```
+./manage.py runserver
+```
