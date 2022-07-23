@@ -43,6 +43,7 @@ CREATE USER lazy_url_user WITH PASSWORD '0000';
 GRANT ALL PRIVILEGES ON DATABASE lazy_url_db TO lazy_url_user;
 ```
 Exit Postgres console ```ctr+Z```
+
 Make migrations:
 ```
 ./manage.py makemigrations
