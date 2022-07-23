@@ -4,7 +4,7 @@ This project has been created to offer a new way to create and manage short URLs
 
 ### To run locally, do the usual: ###
 
-Create a Python virtual environment:
+Create a Python 3.8 virtual environment:
 ```
 python3 -m venv .venv
 ```
