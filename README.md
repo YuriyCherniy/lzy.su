@@ -16,3 +16,4 @@ Clone repository:
 ```
 git clone https://github.com/YuriyCherniy/lzy.su.git
 ```
+Rename .env.example to .env
