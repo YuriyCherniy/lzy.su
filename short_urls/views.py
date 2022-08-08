@@ -101,7 +101,7 @@ class UrlInformation(TemplateView):
         Check permission by password and do appropriate action
         """
         short_url_hash = kwargs.get('short_url_hash')
-        url_obj = get_object_or_404(Url, short_url_hash=short_url_hash)
+        url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
 
         if kwargs.get('password') == url_obj.password:
             self.url_obj = url_obj
