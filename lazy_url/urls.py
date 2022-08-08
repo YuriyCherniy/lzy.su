@@ -18,9 +18,9 @@ urlpatterns = [
     ),
     path('create/', UrlCreateByForm.as_view(), name='url-create-by-form'),
     path('success/', UrlCreateSuccess.as_view(), name='url-create-success'),
-    path('<str:short_url>/', UrlOpen.as_view(), name='url-open'),
-    path('<str:short_url>/i/<int:password>/', UrlInformation.as_view(), name='url-information'),
-    path('<str:short_url>/d/<int:password>/', UrlDelete.as_view(), name='url-delete'),
+    path('<str:short_url_hash>/', UrlOpen.as_view(), name='url-open'),
+    path('<str:short_url_hash>/i/<int:password>/', UrlInformation.as_view(), name='url-information'),
+    path('<str:short_url_hash>/d/<int:password>/', UrlDelete.as_view(), name='url-delete'),
     path('robots.txt', RobotsTxt.as_view()),
     path(
         'sitemap.xml', sitemap, {'sitemaps': {'index-view': IndexSiteMap()}},

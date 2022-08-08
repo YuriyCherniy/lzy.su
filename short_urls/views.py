@@ -42,7 +42,7 @@ class UrlCreate(View):
             # prepare dict to pass to UrlCreateSuccess view for context data
             request.session.update({
                 'long_url': url_obj.long_url,
-                'short_url': url_obj.short_url,
+                'short_url_hash': url_obj.short_url_hash,
                 'password': url_obj.password
             })
             return redirect('url-create-success')
@@ -65,7 +65,7 @@ class UrlCreateByForm(View):
             # prepare dict to pass to UrlCreateSuccess for context data
             request.session.update({
                 'long_url': url_obj.long_url,
-                'short_url': url_obj.short_url,
+                'short_url_hash': url_obj.short_url_hash,
                 'password': url_obj.password
             })
             return redirect('url-create-success')
@@ -80,8 +80,9 @@ class UrlOpen(View):
     Open short url and increment click counter
     """
     def get(self, request, **kwargs):
-        short_url = kwargs.get('short_url')
-        url_obj = get_object_or_404(Url, short_url=short_url, is_active=True)
+        short_url_hash = kwargs.get('short_url_hash')
+        print(short_url_hash)
+        url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
         url_obj.clicks = F('clicks') + 1
         url_obj.save()
         return redirect(url_obj.long_url)
@@ -100,8 +101,8 @@ class UrlInformation(TemplateView):
         """
         Check permission by password and do appropriate action
         """
-        short_url = kwargs.get('short_url')
-        url_obj = get_object_or_404(Url, short_url=short_url)
+        short_url_hash = kwargs.get('short_url_hash')
+        url_obj = get_object_or_404(Url, short_url_hash=short_url_hash)
 
         if kwargs.get('password') == url_obj.password:
             self.url_obj = url_obj
@@ -130,8 +131,8 @@ class UrlDelete(View):
         Check permission by password and do appropriate action
         """
         password = kwargs.get('password')
-        short_url = kwargs.get('short_url')
-        url_obj = get_object_or_404(Url, short_url=short_url)
+        short_url_hash = kwargs.get('short_url_hash')
+        url_obj = get_object_or_404(Url, short_url_hash=short_url_hash)
 
         if url_obj.password == password:
             url_obj.is_active = False
