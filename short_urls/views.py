@@ -81,7 +81,6 @@ class UrlOpen(View):
     """
     def get(self, request, **kwargs):
         short_url_hash = kwargs.get('short_url_hash')
-        print(short_url_hash)
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
         url_obj.clicks = F('clicks') + 1
         url_obj.save()
