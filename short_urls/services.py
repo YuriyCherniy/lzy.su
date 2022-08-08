@@ -7,19 +7,13 @@ hashids = Hashids()
 
 
 def create_url_object(long_url, request):
-    """Genirate a short url identifier and create Url object"""
-
-    # get last pk for hashing or genirate one for first object in a new db
-    try:
-        pk_for_hash = Url.objects.last().pk + 1
-    except AttributeError:
-        pk_for_hash = 1
-
-    short_url = hashids.encode(pk_for_hash)
     url_obj = Url.objects.create(
         long_url=long_url,
-        short_url=short_url,
+        short_url='',  # generate a short url identifier will be performed in the next step
         password=randint(10000, 99999),
         user_ip=request.META.get('HTTP_X_REAL_IP', '0.0.0.0')
     )
+    # generate the short url identifier and save object to db
+    url_obj.short_url = hashids.encode(url_obj.pk)
+    url_obj.save(update_fields=['short_url'])
     return url_obj
