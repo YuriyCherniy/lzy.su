@@ -12,4 +12,12 @@ class Url(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'[{self.long_url[:40]}] from ip [{self.user_ip}]'
+        return f'[ {self.long_url[:40]} ] from ip [{self.user_ip}]'
+
+
+class ForbiddenDomain(models.Model):
+    domain = models.CharField(max_length=2048)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'[ {self.domain} ] created: {self.created.date()}'

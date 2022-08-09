@@ -1,15 +1,19 @@
-import re
+from urllib.parse import urlparse
 
 from django.core.validators import URLValidator, ValidationError
 
+from short_urls.models import ForbiddenDomain
+
 
 class LzyURLValidator(URLValidator):
-    """Forbid domain lzy.su for making short URL"""
+    """
+    Forbid domains from ForbiddenDomain model for making short URL
+    """
 
     def __call__(self, value):
         super().__call__(value)
 
-        regexp = r'http[s]{0,1}://[w]{0,1}[w]{0,1}[w]{0,1}[\.]{0,1}lzy\.su'
-        forbidden_domain = re.search(regexp, value)
-        if forbidden_domain:
+        forbidden_domains = [domain.__str__() for domain in ForbiddenDomain.objects.all()]
+        parsed_url = urlparse(value)
+        if parsed_url.netloc in forbidden_domains:
             raise ValidationError("This link can't be shortened.")

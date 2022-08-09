@@ -2,7 +2,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 
-from short_urls.models import Url
+from short_urls.models import Url, ForbiddenDomain
 from short_urls.views import UrlOpen
 
 
@@ -167,6 +167,7 @@ class ShortUrlViewTestCase(TestCase):
         self.assertEqual(Url.objects.count(), 2)
 
     def test_url_create_view_object_not_created_domain_lzy_su_is_forbidden(self):
+        ForbiddenDomain.objects.create(domain='lzy.su')
         self.c.get('/https://lzy.su')
         self.assertEqual(Url.objects.count(), 1)
 
@@ -175,5 +176,6 @@ class ShortUrlViewTestCase(TestCase):
         self.assertEqual(Url.objects.count(), 2)
 
     def test_url_create_by_form_view_object_not_created_domain_lzy_su_is_forbidden(self):
+        ForbiddenDomain.objects.create(domain='lzy.su')
         self.c.post(reverse('url-create-by-form'), {'long_url': 'https://lzy.su'})
         self.assertEqual(Url.objects.count(), 1)
