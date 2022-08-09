@@ -38,17 +38,17 @@
     </div>
     <div class="row justify-content-lg-center mb-3">
         <div class="col-lg-7 text-center text-lg-left">
-            Password to manage the short URL: <b>{{ password }}</b>
+            Password to manage the short URL: <b>{{ raw_password }}</b>
         </div>
     </div>
     <div class="row justify-content-lg-center mb-3">
         <div class="col-lg-7 text-center text-lg-left">
-            To delete the URL type in the address bar: <b>{{ request.get_host }}/{{ short_url_hash }}<span class="text-info">/d/</span><span class="text-danger">{{ password }}</span></b>
+            To delete the URL type in the address bar: <b>{{ request.get_host }}/{{ short_url_hash }}<span class="text-info">/d/</span><span class="text-danger">{{ raw_password }}</span></b>
         </div>
     </div>
     <div class="row justify-content-lg-center">
         <div class="col-lg-7 text-center text-lg-left mb-5">
-            To get information, type in the address bar: <b>{{ request.get_host }}/{{ short_url_hash }}<span class="text-info">/i/</span><span class="text-danger">{{ password }}</span></b>
+            To get information, type in the address bar: <b>{{ request.get_host }}/{{ short_url_hash }}<span class="text-info">/i/</span><span class="text-danger">{{ raw_password }}</span></b>
         </div>
     </div>
 </div>

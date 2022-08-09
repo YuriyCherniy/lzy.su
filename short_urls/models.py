@@ -4,7 +4,7 @@ from django.db import models
 class Url(models.Model):
     long_url = models.URLField(max_length=2048)
     short_url_hash = models.CharField(max_length=50)
-    password = models.IntegerField()
+    password = models.CharField(max_length=128)
     clicks_per_day = models.IntegerField(default=0)  # not implemented yet
     clicks = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)

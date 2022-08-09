@@ -3,6 +3,7 @@ from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.generic import TemplateView
+from django.contrib.auth.hashers import check_password
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
@@ -37,13 +38,13 @@ class UrlCreate(View):
         long_url = kwargs.get('url', '')
         try:
             self.validate_url(long_url)
-            url_obj = create_url_object(long_url, request)
+            url_obj, raw_password = create_url_object(long_url, request)
 
             # prepare dict to pass to UrlCreateSuccess view for context data
             request.session.update({
                 'long_url': url_obj.long_url,
                 'short_url_hash': url_obj.short_url_hash,
-                'password': url_obj.password
+                'raw_password': raw_password
             })
             return redirect('url-create-success')
         except ValidationError as e:
@@ -60,13 +61,13 @@ class UrlCreateByForm(View):
         form = UrlCreateForm(request.POST)
         if form.is_valid():
             long_url = form.cleaned_data.get('long_url')
-            url_obj = create_url_object(long_url, request)
+            url_obj, raw_password = create_url_object(long_url, request)
 
             # prepare dict to pass to UrlCreateSuccess for context data
             request.session.update({
                 'long_url': url_obj.long_url,
                 'short_url_hash': url_obj.short_url_hash,
-                'password': url_obj.password
+                'raw_password': raw_password
             })
             return redirect('url-create-success')
 
@@ -103,7 +104,8 @@ class UrlInformation(TemplateView):
         short_url_hash = kwargs.get('short_url_hash')
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
 
-        if kwargs.get('password') == url_obj.password:
+        # if kwargs.get('password') == url_obj.password:
+        if check_password(kwargs.get('password'), url_obj.password):
             self.url_obj = url_obj
             return super().get(request, kwargs)
         return render(request, 'short_urls/url_password_error.html')
@@ -133,7 +135,8 @@ class UrlDelete(View):
         short_url_hash = kwargs.get('short_url_hash')
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash)
 
-        if url_obj.password == password:
+        # if url_obj.password == password:
+        if check_password(password, url_obj.password):
             url_obj.is_active = False
             url_obj.save()
             return render(request, 'short_urls/url_delete.html')
