@@ -7,7 +7,8 @@ from short_urls.models import ForbiddenDomain
 
 class LzyURLValidator(URLValidator):
     """
-    Forbid domains from ForbiddenDomain model for making short URL
+    Extends standard URLValidator to forbid domains
+    from ForbiddenDomain model for making short URLs
     """
 
     def __call__(self, value):
