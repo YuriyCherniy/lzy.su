@@ -1,8 +1,8 @@
+from django.contrib.auth.hashers import make_password
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.contrib.auth.hashers import make_password
 
-from short_urls.models import Url, ForbiddenDomain
+from short_urls.models import ForbiddenDomain, Url
 from short_urls.views import UrlOpen
 
 

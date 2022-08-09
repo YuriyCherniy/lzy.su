@@ -1,7 +1,9 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
-from short_urls.validators import LzyURLValidator
+from django.test import TestCase
+
 from short_urls.models import ForbiddenDomain
+from short_urls.validators import LzyURLValidator
+
 
 class LzyURLValidatorTestCase(TestCase):
 

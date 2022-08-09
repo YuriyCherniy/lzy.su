@@ -1,8 +1,7 @@
 from random import randint
 
-from hashids import Hashids
-
 from django.contrib.auth.hashers import make_password
+from hashids import Hashids
 
 from short_urls.models import Url
 

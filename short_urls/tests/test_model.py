@@ -1,7 +1,8 @@
 from tracemalloc import DomainFilter
+
 from django.test import TestCase
 
-from short_urls.models import Url, ForbiddenDomain
+from short_urls.models import ForbiddenDomain, Url
 
 
 class UrlModelTestCase(TestCase):

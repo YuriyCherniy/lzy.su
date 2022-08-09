@@ -1,9 +1,9 @@
+from django.contrib.auth.hashers import check_password
 from django.core.validators import ValidationError
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.generic import TemplateView
-from django.contrib.auth.hashers import check_password
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
