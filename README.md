@@ -24,9 +24,9 @@ Install dependencies:
 ```
 pip install -r requirements/dev.txt
 ```
-Rename ```.env.example``` to ```.env```:
+Copy ```.env.example``` to ```.env```:
 ```
-mv .env.example .env
+cp .env.example .env
 ```
 
 Create Postgres database:
