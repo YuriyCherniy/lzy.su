@@ -14,3 +14,7 @@ class IndexView(TemplateView):
 class RobotsTxt(TemplateView):
     template_name = 'core/robots.txt'
     content_type = 'text/plain'
+
+
+class TermsOfUseView(TemplateView):
+    template_name = 'core/terms_of_use.html'
