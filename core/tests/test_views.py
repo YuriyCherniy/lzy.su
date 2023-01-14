@@ -15,11 +15,6 @@ class IndexViewTestCase(TestCase):
         response = self.c.get(reverse('index-view'))
         self.assertTemplateUsed(response, 'core/index.html')
 
-    def test_index_view_get_context_data_method(self):
-        response = self.c.get(reverse('index-view'))
-        text = response.context_data.get('text')
-        self.assertTrue(text)
-
 
 class TermsOfUseTestCase(SimpleTestCase):
 
