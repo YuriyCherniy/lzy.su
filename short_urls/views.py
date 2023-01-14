@@ -71,9 +71,7 @@ class UrlCreateByForm(View):
             })
             return redirect('url-create-success')
 
-        with open('core/static/text.txt', 'r') as f:
-            text = f.read()
-        return render(request, 'core/index.html', {'form': form, 'text': text})
+        return render(request, 'core/index.html')
 
 
 class UrlOpen(View):
