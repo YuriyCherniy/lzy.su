@@ -17,7 +17,6 @@ class ShortUrlViewTestCase(TestCase):
             long_url='http://site.ru',
             short_url_hash='hf6',
             password='0000',
-            user_ip='0.0.0.0'
         )
 
     # status code 200 tests
