@@ -1,1 +1,1 @@
-_Choose language [ENG](https://github.com/YuriyCherniy/lzy.su/blob/main/README.md)/RUS_
+_Choose language [ENG](https://github.com/YuriyCherniy/lzy.su/blob/dev_lzy_v1_2_1/README.md)/RUS_
