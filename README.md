@@ -1,3 +1,4 @@
+_Choose language ENG/[RUS]()_
 # Hi there! #
 You are behind the scenes of the [lzy.su](https://lzy.su/) link shortening service. This is a small but full-featured service. You can shorten and manage short links without registration and even get some click statistics. It's built with Django web framework. The simplicity of the service makes it easy to understand the source code. There are only several Views, a couple Models and one simple Validator.
 
