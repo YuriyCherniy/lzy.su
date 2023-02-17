@@ -1,5 +1,5 @@
 # Hi there! #
-You are behind the scenes of the [lzy.su](https://lzy.su/) link shortening service. This is a small but full-featured service. You can shorten and manage short links without registration and even get some click statistics.
+You are behind the scenes of the [lzy.su](https://lzy.su/) link shortening service. This is a small but full-featured service. You can shorten and manage short links without registration and even get some click statistics. It's built with Django web framework. The simplicity of the service makes it easy to understand the source code.
 
 This project has been created to offer a new way to create and manage short URLs. How to create lazy short URL read here: [lzy.su](https://lzy.su/). If you try it out, you will like it.
 
