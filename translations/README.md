@@ -1,1 +1,1 @@
-_**Choose language [ENG](https://github.com/YuriyCherniy/lzy.su/tree/dev_lzy_v1_2_1)/RUS**_
+_**Выберите язык [ENG](https://github.com/YuriyCherniy/lzy.su/tree/dev_lzy_v1_2_1)/RUS**_
