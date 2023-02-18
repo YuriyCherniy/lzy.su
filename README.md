@@ -30,7 +30,6 @@ Copy ```.env.example``` to ```.env```:
 ```
 cp .env.example .env
 ```
-```
 Migrate:
 ```
 ./manage.py migrate
