@@ -1,7 +1,7 @@
 ![GitHub](https://img.shields.io/github/license/yuriycherniy/lzy.su)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yuriycherniy/lzy.su)
 
-_**Choose language ENG/[RUS](https://github.com/YuriyCherniy/lzy.su/blob/main/docs/translations/README.md)**_
+_**Choose language ENG/[RUS](https://github.com/YuriyCherniy/lzy.su/blob/main/docs/translations/README.ru.md)**_
 # Hi there! #
 You're behind the scenes of the [lzy.su](https://lzy.su/) link shortening service. This is a small but full-featured service. You can shorten URLs and manage short links without registration and even get some click statistics. It's built with Django web framework. The simplicity of the service makes it easy to understand the source code by users with almost any programming experience. There are only several Views, a couple Models and one simple Validator.
 
