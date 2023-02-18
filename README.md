@@ -1,4 +1,5 @@
 ![](https://img.shields.io/github/license/yuriycherniy/lzy.su)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yuriycherniy/lzy.su)
 
 _**Choose language ENG/[RUS](https://github.com/YuriyCherniy/lzy.su/blob/dev_lzy_v1_2_1/translations/README.md)**_
 # Hi there! #
