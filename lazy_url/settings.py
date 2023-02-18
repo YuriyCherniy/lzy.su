@@ -96,7 +96,8 @@ WSGI_APPLICATION = 'lazy_url.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-POSTGRES = env.bool('POSTGRES') # if POSTGRES variable set to False SQLite database will be used.
+# if POSTGRES variable set to False SQLite database will be used.
+POSTGRES = env.bool('POSTGRES')
 
 SQLITE_DB = {
     'default': {
