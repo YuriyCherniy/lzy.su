@@ -96,7 +96,16 @@ WSGI_APPLICATION = 'lazy_url.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
+POSTGRES = env.bool('POSTGRES') # if POSTGRES variable set to False SQLite database will be used.
+
+SQLITE_DB = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+POSTGRES_DB = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('POSTGRES_DB'),
@@ -106,6 +115,8 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+DATABASES = POSTGRES_DB if POSTGRES else SQLITE_DB
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
