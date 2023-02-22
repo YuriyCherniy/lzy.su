@@ -55,6 +55,11 @@ class ShortUrlViewTestCase(TestCase):
             )
         self.assertEqual(response.status_code, 200)
 
+    def test_url_open_view_status_code_302(self):
+        url_obj = Url.objects.first()
+        response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
+        self.assertEqual(response.status_code, 200)
+
     # status code 302 tests
     def test_url_create_view_status_code_302(self):
         response = self.c.get('/https://test-site.com')
@@ -65,11 +70,6 @@ class ShortUrlViewTestCase(TestCase):
             reverse('url-create-by-form'), {'long_url': 'https://test-site.com'}
         )
         self.assertEqual(response.status_code, 302)
-
-    def test_url_open_view_status_code_302(self):
-        url_obj = Url.objects.first()
-        response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
-        self.assertEqual(response.status_code, 200)
 
     # template used tests
     def test_url_create_success_view_template_used(self):
