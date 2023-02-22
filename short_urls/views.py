@@ -83,7 +83,6 @@ class UrlOpen(View):
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
         url_obj.clicks = F('clicks') + 1
         url_obj.save()
-        print(request.session.keys())
         return render(
             request, 'short_urls/url_open.html', context={'long_url': url_obj.long_url}
         )
