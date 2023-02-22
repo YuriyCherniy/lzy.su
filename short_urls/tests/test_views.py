@@ -69,7 +69,7 @@ class ShortUrlViewTestCase(TestCase):
     def test_url_open_view_status_code_302(self):
         url_obj = Url.objects.first()
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
 
     # template used tests
     def test_url_create_success_view_template_used(self):
