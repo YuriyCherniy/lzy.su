@@ -1,4 +1,4 @@
-/*makes footer sticky*/
+/* makes footer sticky */
 html, body {
     height: 100%;
   }
@@ -13,5 +13,7 @@ html, body {
     flex-shrink: 0;
   }
   
-
-
+  /* breaks long too url on a url_open.html page */
+  .break-long-url {
+    word-break: break-all;
+  }

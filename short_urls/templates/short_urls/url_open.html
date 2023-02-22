@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>Pay attention! You will be redirected.</title>{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-6">
+            <h1 class="text-center text-info mt-4 mt-lg-5 mb-lg-4">Pay Attention!</h1>
+        </div>
+    </div>
+    <div class="row justify-content-lg-center mb-2">
+        <div class="col-lg-7">
+            <p class="text-muted">You have clicked on a URL created by the lzy.su link shortening
+                service. The link you clicked will actually redirect you to: <b
+                    class="text-dark"><i>{{long_url|truncatechars:50 }}</i></b>.
+                The lzy.su service has nothing to do with the site linked above, cannot guarantee you the safety of its
+                use and know nothing about information it contains.</p>
+            <p class="text-muted break-long-url">Take a look at the link carefully one more time. If you trust this
+                address, click on
+                it to go ahead, otherwise just close this page: <b><i><a href="{{ long_url }}">{{ long_url}}</a></i></b>
+            </p>
+            <p class="text-muted"><b><i>To know more about lzy.su <a href="{% url 'index-view' %}">click on
+                            me</a>.</i></b></p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
