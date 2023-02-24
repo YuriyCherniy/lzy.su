@@ -3,7 +3,7 @@ from django.core.validators import ValidationError
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
@@ -76,16 +76,32 @@ class UrlCreateSuccess(TemplateView):
 
 class UrlOpen(View):
     """
-    Increment click counter and open short url on a warning page
+    Increment click counter and open a short url on a warning page
     """
     def get(self, request, **kwargs):
         short_url_hash = kwargs.get('short_url_hash')
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
-        url_obj.clicks = F('clicks') + 1
+        url_obj.clicks_on_short_url = F('clicks_on_short_url') + 1
         url_obj.save()
         return render(
             request, 'short_urls/url_open.html', context={'long_url': url_obj.long_url}
         )
+
+
+class RedirectToLongURL(RedirectView):
+    """
+    This layer of view was added to count clicks on long URL
+    """
+    def get(self, request, *args, **kwargs):
+        url_obj = get_object_or_404(
+            Url, short_url_hash=request.session.get('short_url_hash'), is_active=True
+        )
+        url_obj.clicks_on_long_url = F('clicks_on_long_url') + 1
+        url_obj.save()
+        return super().get(request,*args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return self.request.session.get('long_url')
 
 
 class UrlInformation(TemplateView):
@@ -113,7 +129,8 @@ class UrlInformation(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
-            'url_clicks': self.url_obj.clicks,
+            'short_url_clicks': self.url_obj.clicks_on_short_url,
+            'long_url_clicks': self.url_obj.clicks_on_long_url,
             'url_created': self.url_obj.created,
             'long_url': self.url_obj.long_url
         })

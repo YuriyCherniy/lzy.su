@@ -5,8 +5,8 @@ class Url(models.Model):
     long_url = models.URLField(max_length=2048)
     short_url_hash = models.CharField(max_length=50)
     password = models.CharField(max_length=128)
-    clicks_per_day = models.IntegerField(default=0)  # not implemented yet
-    clicks = models.IntegerField(default=0)
+    clicks_on_short_url = models.IntegerField(default=0)
+    clicks_on_long_url = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
 

@@ -3,7 +3,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from short_urls.models import ForbiddenDomain, Url
-from short_urls.views import UrlOpen
+from short_urls.views import UrlOpen, RedirectToLongURL
 
 
 class ShortUrlViewTestCase(TestCase):
@@ -69,6 +69,13 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.post(
             reverse('url-create-by-form'), {'long_url': 'https://test-site.com'}
         )
+        self.assertEqual(response.status_code, 302)
+
+    def test_redirect_to_long_url_view_status_code_302(self):
+        self.c.post(
+            reverse('url-create-by-form'), {'long_url': 'https://test-redirect-302-status.com'}
+        )
+        response = self.c.get(reverse('redirect-to-long-url'))
         self.assertEqual(response.status_code, 302)
 
     # template used tests
@@ -137,11 +144,20 @@ class ShortUrlViewTestCase(TestCase):
         self.assertEqual(response.context.get('short_url_hash'), url_obj.short_url_hash)
         # self.assertEqual(response.context.get('password'), url_obj.password)
 
-    def test_open_url_view_get_method_click_counter_works(self):
+    def test_open_url_view_get_method_short_url_click_counter_works(self):
         url_open_view = UrlOpen()
         url_open_view.get(request=None, short_url_hash='hf6')
         url_obj = Url.objects.get(short_url_hash='hf6')
-        self.assertEqual(url_obj.clicks, 1)
+        self.assertEqual(url_obj.clicks_on_short_url, 1)
+
+    def test_open_url_view_get_method_long_url_click_counter_works(self):
+        response = self.c.post(
+            reverse('url-create-by-form'), {'long_url': 'https://test-long-click-counter.com'}
+        )
+        url_obj = Url.objects.get(long_url='https://test-long-click-counter.com')
+        self.c.get(reverse('redirect-to-long-url'))
+        url_obj.refresh_from_db()
+        self.assertEqual(url_obj.clicks_on_long_url, 1)
 
     # def test_url_information_view_get_context_data_method(self):
     #     url_obj = Url.objects.get(short_url_hash='hf6')

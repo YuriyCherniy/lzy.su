@@ -6,7 +6,7 @@ from django.urls import include, path, re_path
 from core.sitemap import IndexSiteMap
 from core.views import RobotsTxt
 from short_urls.views import (UrlCreate, UrlCreateByForm, UrlCreateSuccess,
-                              UrlDelete, UrlInformation, UrlOpen)
+                              UrlDelete, UrlInformation, UrlOpen, RedirectToLongURL)
 
 urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
@@ -18,6 +18,7 @@ urlpatterns = [
     ),
     path('create/', UrlCreateByForm.as_view(), name='url-create-by-form'),
     path('success/', UrlCreateSuccess.as_view(), name='url-create-success'),
+    path('redirect/', RedirectToLongURL.as_view(), name='redirect-to-long-url'),
     path('<str:short_url_hash>/', UrlOpen.as_view(), name='url-open'),
     path('<str:short_url_hash>/i/<int:password>/', UrlInformation.as_view(), name='url-information'),
     path('<str:short_url_hash>/d/<int:password>/', UrlDelete.as_view(), name='url-delete'),

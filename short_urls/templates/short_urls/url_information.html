@@ -16,12 +16,13 @@
     </div>
     <div class="row justify-content-lg-center mb-2">
         <div class="col-lg-7">
-            <h6 class="text-center">Long URL: <a href="{{ long_url }}">{{ long_url|truncatechars:45 }}</a></h6>
+            <h6 class="text-center">Target URL: <a href="{{ long_url }}">{{ long_url|truncatechars:45 }}</a></h6>
         </div>
     </div>
     <div class="row justify-content-lg-center mb-2">
         <div class="col-lg-7">
-            <h6 class="text-center">Clicks: {{ url_clicks }}</h6>
+            <h6 class="text-center">Clicks on the shortened URL: {{ short_url_clicks }}</h6>
+            <h6 class="text-center">Сlicks on the target URL on the intermediate page: {{ long_url_clicks }}</h6>
         </div>
     </div>
 
