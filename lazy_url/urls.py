@@ -5,8 +5,9 @@ from django.urls import include, path, re_path
 
 from core.sitemap import IndexSiteMap
 from core.views import RobotsTxt
-from short_urls.views import (UrlCreate, UrlCreateByForm, UrlCreateSuccess,
-                              UrlDelete, UrlInformation, UrlOpen, RedirectToLongURL)
+from short_urls.views import (RedirectToLongURL, UrlCreate, UrlCreateByForm,
+                              UrlCreateSuccess, UrlDelete, UrlInformation,
+                              UrlOpen)
 
 urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),

@@ -3,7 +3,7 @@ from django.core.validators import ValidationError
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import RedirectView, TemplateView
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url

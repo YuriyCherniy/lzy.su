@@ -3,7 +3,7 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from short_urls.models import ForbiddenDomain, Url
-from short_urls.views import UrlOpen, RedirectToLongURL
+from short_urls.views import RedirectToLongURL, UrlOpen
 
 
 class ShortUrlViewTestCase(TestCase):
