@@ -1,4 +1,8 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /create/
+Disallow: /success/
+Disallow: /redirect/
+Disallow: /i/
+Disallow: /d/
 Sitemap: https://lzy.su/sitemap.xml
