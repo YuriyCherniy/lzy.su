@@ -84,7 +84,8 @@ class UrlOpen(View):
         url_obj.clicks_on_short_url = F('clicks_on_short_url') + 1
         url_obj.save()
         return render(
-            request, 'short_urls/url_open.html', context={'long_url': url_obj.long_url}
+            request, 'short_urls/url_open.html',
+            context={'long_url': url_obj.long_url, 'short_url_hash': url_obj.short_url_hash}
         )
 
 
@@ -93,15 +94,15 @@ class RedirectToLongURL(RedirectView):
     This layer of view was added to count clicks on long URL
     """
     def get(self, request, *args, **kwargs):
-        url_obj = get_object_or_404(
-            Url, short_url_hash=request.session.get('short_url_hash'), is_active=True
+        self.url_obj = get_object_or_404(
+            Url, short_url_hash=kwargs.get('short_url_hash'), is_active=True
         )
-        url_obj.clicks_on_long_url = F('clicks_on_long_url') + 1
-        url_obj.save()
+        self.url_obj.clicks_on_long_url = F('clicks_on_long_url') + 1
+        self.url_obj.save()
         return super().get(request,*args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
-        return self.request.session.get('long_url')
+        return self.url_obj.long_url
 
 
 class UrlInformation(TemplateView):
@@ -120,7 +121,6 @@ class UrlInformation(TemplateView):
         short_url_hash = kwargs.get('short_url_hash')
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
 
-        # if kwargs.get('password') == url_obj.password:
         if check_password(kwargs.get('password'), url_obj.password):
             self.url_obj = url_obj
             return super().get(request, kwargs)
@@ -152,7 +152,6 @@ class UrlDelete(View):
         short_url_hash = kwargs.get('short_url_hash')
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash)
 
-        # if url_obj.password == password:
         if check_password(password, url_obj.password):
             url_obj.is_active = False
             url_obj.save()

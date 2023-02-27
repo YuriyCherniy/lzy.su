@@ -72,10 +72,8 @@ class ShortUrlViewTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_redirect_to_long_url_view_status_code_302(self):
-        self.c.post(
-            reverse('url-create-by-form'), {'long_url': 'https://test-redirect-302-status.com'}
-        )
-        response = self.c.get(reverse('redirect-to-long-url'))
+        url_obj = Url.objects.last()
+        response = self.c.get(reverse('redirect-to-long-url', args=[url_obj.short_url_hash]))
         self.assertEqual(response.status_code, 302)
 
     # template used tests
@@ -155,7 +153,7 @@ class ShortUrlViewTestCase(TestCase):
             reverse('url-create-by-form'), {'long_url': 'https://test-long-click-counter.com'}
         )
         url_obj = Url.objects.get(long_url='https://test-long-click-counter.com')
-        self.c.get(reverse('redirect-to-long-url'))
+        self.c.get(reverse('redirect-to-long-url', args=[url_obj.short_url_hash]))
         url_obj.refresh_from_db()
         self.assertEqual(url_obj.clicks_on_long_url, 1)
 

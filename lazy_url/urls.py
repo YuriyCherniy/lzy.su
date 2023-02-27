@@ -19,7 +19,7 @@ urlpatterns = [
     ),
     path('create/', UrlCreateByForm.as_view(), name='url-create-by-form'),
     path('success/', UrlCreateSuccess.as_view(), name='url-create-success'),
-    path('redirect/', RedirectToLongURL.as_view(), name='redirect-to-long-url'),
+    path('redirect/<str:short_url_hash>/', RedirectToLongURL.as_view(), name='redirect-to-long-url'),
     path('<str:short_url_hash>/', UrlOpen.as_view(), name='url-open'),
     path('<str:short_url_hash>/i/<int:password>/', UrlInformation.as_view(), name='url-information'),
     path('<str:short_url_hash>/d/<int:password>/', UrlDelete.as_view(), name='url-delete'),
