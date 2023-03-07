@@ -65,6 +65,7 @@ class UrlCreateSuccess(TemplateView):
     of a new record to db if the user accidentally hit the original
     request URL one more time.
     """
+    
     template_name = 'short_urls/url_create_success.html'
 
     def get_context_data(self, **kwargs):
