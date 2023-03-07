@@ -60,7 +60,10 @@ class UrlCreateByForm(View):
 class UrlCreateSuccess(TemplateView):
     """
     View to redirect after successful creation a short url.
-    Necessary for elegant URL scheme.
+    As a GET method in UrlCreate view is actually not idempotent,
+    we need to redirect a user to /success/ URI to prevent creation
+    of a new record to db if the user accidentally hit the original
+    request URL one more time.
     """
     template_name = 'short_urls/url_create_success.html'
 
