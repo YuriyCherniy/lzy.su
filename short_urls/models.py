@@ -8,6 +8,7 @@ class Url(models.Model):
     clicks_on_short_url = models.IntegerField(default=0)
     clicks_on_long_url = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
+    is_lazy = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

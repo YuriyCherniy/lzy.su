@@ -21,7 +21,7 @@ class UrlCreate(View):
         long_url = kwargs.get('url', '')
         try:
             self.validate_url(long_url)
-            url_obj, raw_password = create_url_object(long_url)
+            url_obj, raw_password = create_url_object(long_url, is_lazy=True)
 
             # prepare dict to pass to UrlCreateSuccess view for context data
             request.session.update({
