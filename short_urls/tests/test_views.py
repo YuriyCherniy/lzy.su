@@ -17,6 +17,7 @@ class ShortUrlViewTestCase(TestCase):
             long_url='http://site.ru',
             short_url_hash='hf6',
             password='0000',
+            is_lazy=False,
         )
 
     # status code 200 tests
@@ -192,3 +193,14 @@ class ShortUrlViewTestCase(TestCase):
         ForbiddenDomain.objects.create(domain='lzy.su')
         self.c.post(reverse('url-create-by-form'), {'long_url': 'https://lzy.su'})
         self.assertEqual(Url.objects.count(), 1)
+    
+    def test_url_create_view_boolean_is_lazy_set_to_true(self):
+        self.c.get('/https://test-site-is-lazy-true.com')
+        obj = Url.objects.get(long_url='https://test-site-is-lazy-true.com')
+        self.assertEqual(obj.is_lazy, True)
+
+    def test_url_create_by_form_view_boolean_is_lazy_set_to_false(self):
+        self.c.post(reverse('url-create-by-form'), {'long_url': 'https://test-site-is-lazy-false.com'})
+        obj = Url.objects.get(long_url='https://test-site-is-lazy-false.com')
+        self.assertEqual(obj.is_lazy, False)
+

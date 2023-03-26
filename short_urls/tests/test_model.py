@@ -12,6 +12,7 @@ class UrlModelTestCase(TestCase):
             long_url='http://test.ru/some-long-url-from-the-internet',
             short_url_hash='test',
             password=00000,
+            is_lazy=False,
         )
 
         ForbiddenDomain.objects.create(domain='lzy.su')
