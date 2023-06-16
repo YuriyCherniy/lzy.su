@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
-from short_urls.services import create_url_object
+from short_urls.services import create_url_object, prepare_session
 from short_urls.validators import LzyURLValidator
 
 
@@ -24,12 +24,7 @@ class UrlCreate(View):
         try:
             self.validate_url(long_url)
             url_obj, raw_password = create_url_object(long_url, is_lazy=True)
-
-            # prepare dict to pass to UrlCreateSuccess view for context data
-            request.session.update({
-                'short_url_hash': url_obj.short_url_hash,
-                'raw_password': raw_password
-            })
+            prepare_session(request.session, url_obj, raw_password)
             return redirect('url-create-success')
         except ValidationError as e:
             return render(
@@ -45,12 +40,7 @@ class UrlCreateByForm(FormView):
     def form_valid(self, form):
             long_url = form.cleaned_data.get('long_url')
             url_obj, raw_password = create_url_object(long_url)
-
-            # prepare dict to pass to UrlCreateSuccess for context data
-            self.request.session.update({
-                'short_url_hash': url_obj.short_url_hash,
-                'raw_password': raw_password
-            })
+            prepare_session(self.request.session, url_obj, raw_password)
             return super().form_valid(form)
 
 

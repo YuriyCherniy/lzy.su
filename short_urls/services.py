@@ -29,3 +29,13 @@ def create_url_object(long_url, is_lazy=False):
     url_obj.short_url_hash = hashids.encode(url_obj.pk)
     url_obj.save(update_fields=['short_url_hash'])
     return url_obj, raw_password
+
+
+def prepare_session(session, url_obj, raw_password):
+    '''
+    Prepare session to pass dict to UrlCreateSuccess view for context data
+    '''
+    session.update({
+        'short_url_hash': url_obj.short_url_hash,
+        'raw_password': raw_password
+    })
