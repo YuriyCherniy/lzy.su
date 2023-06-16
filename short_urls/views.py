@@ -4,6 +4,8 @@ from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.generic import RedirectView, TemplateView
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
@@ -25,7 +27,6 @@ class UrlCreate(View):
 
             # prepare dict to pass to UrlCreateSuccess view for context data
             request.session.update({
-                'long_url': url_obj.long_url,
                 'short_url_hash': url_obj.short_url_hash,
                 'raw_password': raw_password
             })
@@ -36,25 +37,21 @@ class UrlCreate(View):
             )
 
 
-class UrlCreateByForm(View):
-    """
-    Create short url the old way by HTML form
-    """
-    def post(self, request):
-        form = UrlCreateForm(request.POST)
-        if form.is_valid():
+class UrlCreateByForm(FormView):
+    form_class = UrlCreateForm
+    success_url = reverse_lazy('url-create-success')
+    template_name = 'short_urls/url_create_success.html'
+
+    def form_valid(self, form):
             long_url = form.cleaned_data.get('long_url')
             url_obj, raw_password = create_url_object(long_url)
 
             # prepare dict to pass to UrlCreateSuccess for context data
-            request.session.update({
-                'long_url': url_obj.long_url,
+            self.request.session.update({
                 'short_url_hash': url_obj.short_url_hash,
                 'raw_password': raw_password
             })
-            return redirect('url-create-success')
-
-        return render(request, 'core/index.html')
+            return super().form_valid(form)
 
 
 class UrlCreateSuccess(TemplateView):
