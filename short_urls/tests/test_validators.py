@@ -2,13 +2,13 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from short_urls.models import ForbiddenDomain
-from short_urls.validators import LzyURLValidator
+from short_urls.validators import ForbiddenDomainValidator
 
 
-class LzyURLValidatorTestCase(TestCase):
+class ForbiddenDomainValidatorTestCase(TestCase):
 
     def setUp(self):
-        self.validator = LzyURLValidator()
+        self.validator = ForbiddenDomainValidator()
         ForbiddenDomain.objects.create(domain='lzy.su')
         ForbiddenDomain.objects.create(domain='www.lzy.su')
 
