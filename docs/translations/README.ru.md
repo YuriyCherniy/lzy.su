@@ -1,5 +1,8 @@
-![GitHub](https://img.shields.io/github/license/yuriycherniy/lzy.su)
+![GitHub top language](https://img.shields.io/github/languages/top/yuriycherniy/lzy.su)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yuriycherniy/lzy.su)
+![GitHub](https://img.shields.io/github/license/yuriycherniy/lzy.su)
+![GitHub last commit (by committer)](https://img.shields.io/github/last-commit/yuriycherniy/lzy.su)
+![Static Badge](https://img.shields.io/badge/beginner%20friendly-008080)
 
 _**Выберите язык [ENG](https://github.com/YuriyCherniy/lzy.su)/RUS**_
 # Привет! #
