@@ -10,14 +10,14 @@ from django.urls import reverse_lazy
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
 from short_urls.services import create_url_object, prepare_session
-from short_urls.validators import LzyURLValidator
+from short_urls.validators import ForbiddenDomainValidator
 
 
 class UrlCreate(View):
     """
     Create short url when user has typed command in browser's address bar
     """
-    validate_url = LzyURLValidator()
+    validate_url = ForbiddenDomainValidator()
 
     def get(self, request, **kwargs):
         long_url = kwargs.get('url', '')

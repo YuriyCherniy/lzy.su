@@ -5,7 +5,7 @@ from django.core.validators import URLValidator, ValidationError
 from short_urls.models import ForbiddenDomain
 
 
-class LzyURLValidator(URLValidator):
+class ForbiddenDomainValidator(URLValidator):
     """
     Extends standard URLValidator to forbid domains
     from ForbiddenDomain model for making short URLs
