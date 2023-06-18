@@ -2,10 +2,10 @@ from django.contrib.auth.hashers import check_password
 from django.core.validators import ValidationError
 from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
