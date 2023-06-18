@@ -23,7 +23,7 @@ class ForbiddenDomain(models.Model):
 
     def save(self, *args, **kwargs):
         '''
-        Prepare domain name for ForbiddenDomainValidator
+        Prepares domain name for ForbiddenDomainValidator
         '''
         domain = re.sub(r'http[s]{0,1}://', '', self.domain, 1)
         if domain.startswith('www.'):
@@ -33,4 +33,10 @@ class ForbiddenDomain(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'[ {self.domain} ] created: {self.created.date()}'
+        '''
+        Returns a string representation of the banned
+        domain and the number of links in the database
+        already added to the database before the ban
+        '''
+        exist = Url.objects.filter(long_url__icontains=self.domain[4:])
+        return f'[ {self.domain} ] created: {self.created.date()}, already exist {exist.count()}'

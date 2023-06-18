@@ -25,7 +25,23 @@ class UrlModelTestCase(TestCase):
 
     def test_forbidden_domain_str_method(self):
         obj = ForbiddenDomain.objects.get(domain='www.lzy.su')
-        self.assertEqual(obj.__str__(), f'[ {obj.domain} ] created: {obj.created.date()}')
+        self.assertEqual(obj.__str__(), f'[ {obj.domain} ] created: {obj.created.date()}, already exist 0')
+
+    def test_forbidden_domain_str_method_exist_two_forbidden_domain(self):
+        Url.objects.create(
+            long_url='http://www.lzy.su/some-long-url-from-the-internet',
+            short_url_hash='test_2',
+            password=00000,
+            is_lazy=False,
+        )
+        Url.objects.create(
+            long_url='http://lzy.su/some-long-url-from-the-internet',
+            short_url_hash='test_2',
+            password=00000,
+            is_lazy=False,
+        )
+        obj = ForbiddenDomain.objects.get(domain='www.lzy.su')
+        self.assertEqual(obj.__str__(), f'[ {obj.domain} ] created: {obj.created.date()}, already exist 2')
 
     def test_forbidden_domain_save_method(self):
         obj_https_www = ForbiddenDomain.objects.create(domain='https://www.youtube.com/')
