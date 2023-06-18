@@ -24,5 +24,19 @@ class UrlModelTestCase(TestCase):
         )
 
     def test_forbidden_domain_str_method(self):
-        obj = ForbiddenDomain.objects.get(domain='lzy.su')
+        obj = ForbiddenDomain.objects.get(domain='www.lzy.su')
         self.assertEqual(obj.__str__(), f'[ {obj.domain} ] created: {obj.created.date()}')
+
+    def test_forbidden_domain_save_method(self):
+        obj_https_www = ForbiddenDomain.objects.create(domain='https://www.youtube.com/')
+        obj_https = ForbiddenDomain.objects.create(domain='https://youtube.com/')
+        obj_http_www = ForbiddenDomain.objects.create(domain='http://www.youtube.com/')
+        obj_http = ForbiddenDomain.objects.create(domain='http://youtube.com/')
+        obj_www = ForbiddenDomain.objects.create(domain='www.youtube.com/')
+        obj = ForbiddenDomain.objects.create(domain='youtube.com/')
+        self.assertEqual(obj_https_www.domain, 'www.youtube.com/')
+        self.assertEqual(obj_https.domain, 'www.youtube.com/')
+        self.assertEqual(obj_http_www.domain, 'www.youtube.com/')
+        self.assertEqual(obj_http.domain, 'www.youtube.com/')
+        self.assertEqual(obj_www.domain, 'www.youtube.com/')
+        self.assertEqual(obj.domain, 'www.youtube.com/')
