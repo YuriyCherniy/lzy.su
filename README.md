@@ -1,6 +1,6 @@
 ![GitHub](https://img.shields.io/github/license/yuriycherniy/lzy.su)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/yuriycherniy/lzy.su)
-![Static Badge](https://img.shields.io/badge/beginner%20friendly)
+![Static Badge](https://img.shields.io/badge/beginner%20friendly-8A2BE2)
 
 _**Choose language ENG/[RUS](https://github.com/YuriyCherniy/lzy.su/blob/main/docs/translations/README.ru.md)**_
 # Hi there! #
