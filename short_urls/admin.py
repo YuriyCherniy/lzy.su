@@ -7,7 +7,6 @@ from short_urls.models import ForbiddenDomain, Url
 class UrlInLine(admin.StackedInline):
     model = Url
     fields = ['is_active']
-    readonly_fields = ['long_url']
     verbose_name_plural = 'ALREADY EXISTING LINKS WITH A FORBIDDEN DOMAIN'
     extra = 0
     max_num = 0
