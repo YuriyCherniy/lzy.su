@@ -26,7 +26,8 @@ class ForbiddenDomain(models.Model):
 
     def save(self, *args, **kwargs):
         '''
-        Prepares domain name for ForbiddenDomainValidator
+        Prepares domain name for ForbiddenDomainValidator,
+        it always must start with 'www.'
         '''
         domain = re.sub(r'http[s]{0,1}://', '', self.domain, 1)
         if domain.startswith('www.'):
