@@ -12,6 +12,9 @@ class Url(models.Model):
     is_active = models.BooleanField(default=True)
     is_lazy = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
+    forbidden_domain = models.ForeignKey(
+        'short_urls.ForbiddenDomain', blank=True, null=True, on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return f'[ {self.long_url[:40]} ] created at [{self.created}]'
@@ -30,7 +33,11 @@ class ForbiddenDomain(models.Model):
             self.domain = domain
         else:
             self.domain = f'www.{domain}'
+    
         super().save(*args, **kwargs)
+
+        exist = Url.objects.filter(long_url__icontains=self.domain[4:])
+        exist.update(forbidden_domain=self)
 
     def __str__(self):
         '''
