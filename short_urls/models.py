@@ -10,7 +10,7 @@ class Url(models.Model):
     clicks_on_short_url = models.IntegerField(default=0)
     clicks_on_long_url = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
-    is_lazy = models.BooleanField()
+    is_lazy = models.BooleanField()  # True if link was added through browser's address bar
     created = models.DateTimeField(auto_now_add=True)
     forbidden_domain = models.ForeignKey(
         'short_urls.ForbiddenDomain', blank=True, null=True, on_delete=models.SET_NULL
