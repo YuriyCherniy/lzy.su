@@ -38,10 +38,10 @@ class UrlCreateByForm(FormView):
     template_name = 'short_urls/url_create_success.html'
 
     def form_valid(self, form):
-            long_url = form.cleaned_data.get('long_url')
-            url_obj, raw_password = create_url_object(long_url)
-            prepare_session(self.request.session, url_obj, raw_password)
-            return super().form_valid(form)
+        long_url = form.cleaned_data.get('long_url')
+        url_obj, raw_password = create_url_object(long_url)
+        prepare_session(self.request.session, url_obj, raw_password)
+        return super().form_valid(form)
 
 
 class UrlCreateSuccess(TemplateView):
