@@ -11,7 +11,6 @@ class UrlInLine(admin.StackedInline):
     extra = 0
     max_num = 0
     show_change_link = True
-    
 
 
 class AdminForbiddenDomain(admin.ModelAdmin):
