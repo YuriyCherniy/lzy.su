@@ -89,7 +89,7 @@ class RedirectToLongURL(RedirectView):
         )
         self.url_obj.clicks_on_long_url = F('clicks_on_long_url') + 1
         self.url_obj.save()
-        return super().get(request,*args, **kwargs)
+        return super().get(request, *args, **kwargs)
 
     def get_redirect_url(self, *args, **kwargs):
         return self.url_obj.long_url
