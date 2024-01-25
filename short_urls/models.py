@@ -34,7 +34,7 @@ class ForbiddenDomain(models.Model):
             self.domain = domain
         else:
             self.domain = f'www.{domain}'
-    
+
         super().save(*args, **kwargs)
 
         exist = Url.objects.filter(long_url__icontains=self.domain[4:])
