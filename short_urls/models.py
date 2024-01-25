@@ -40,7 +40,7 @@ class ForbiddenDomain(models.Model):
         # Find already existing links with forbidden domain
         # and mark them by ForeignKey
         exist = Url.objects.filter(long_url__icontains=self.domain[4:])
-        exist.update(forbidden_domain=self)
+        exist.update(forbidden_domain=self.pk)
 
     def __str__(self):
         '''
