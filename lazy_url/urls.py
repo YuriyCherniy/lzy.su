@@ -10,7 +10,6 @@ from short_urls.views import (RedirectToLongURL, UrlCreate, UrlCreateByForm,
                               UrlOpen)
 
 urlpatterns = [
-    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path(f'{settings.SECRET_ADMIN_URL}/', admin.site.urls),
     path('', include('core.urls')),
     re_path(
