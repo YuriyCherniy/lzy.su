@@ -25,8 +25,7 @@ def create_url_object(long_url, is_lazy=False):
         password=make_password(raw_password),
         is_lazy=is_lazy,
     )
-    # generate the short url identifier and save object to db
-    url_obj.short_url_hash = hashids.encode(url_obj.pk)
+    url_obj.short_url_hash = hashids.encode(url_obj.pk)  # generate the short url identifier
     url_obj.save(update_fields=['short_url_hash'])
     return url_obj, raw_password
 
