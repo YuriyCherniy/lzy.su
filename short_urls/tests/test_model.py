@@ -13,6 +13,7 @@ class UrlModelTestCase(TestCase):
             short_url_hash='test',
             password=00000,
             is_lazy=False,
+            is_spam=False,
         )
 
         ForbiddenDomain.objects.create(domain='lzy.su')
@@ -33,12 +34,14 @@ class UrlModelTestCase(TestCase):
             short_url_hash='test_2',
             password=00000,
             is_lazy=False,
+            is_spam=False,
         )
         Url.objects.create(
             long_url='http://lzy.su/some-long-url-from-the-internet',
             short_url_hash='test_2',
             password=00000,
             is_lazy=False,
+            is_spam=False,
         )
         obj = ForbiddenDomain.objects.get(domain='www.lzy.su')
         self.assertEqual(obj.__str__(), f'[ {obj.domain} ] created: {obj.created.date()}, already exist 2')
