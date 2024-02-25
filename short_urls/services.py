@@ -8,15 +8,9 @@ from short_urls.models import Url
 hashids = Hashids()
 
 
-def create_url_object(long_url, is_lazy=False):
+def create_url_object(long_url, is_spam, is_lazy=False):
     """
     Generate password to manage an object and create the object
-
-    :param long_url: a string captured from browser's address bar or HTML form.
-    :param is_lazy: a boolean represents which way a user requested to create Url object.
-    If the user created a short URL by typing a command in browser's address bar, is_lazy=True
-    otherwise is_lazy=False.
-    :return: the Url object and raw password
     """
     raw_password = str(randint(10000, 99999))
     url_obj = Url.objects.create(
@@ -24,6 +18,7 @@ def create_url_object(long_url, is_lazy=False):
         short_url_hash='',  # generating a short url identifier will be performed on the next step
         password=make_password(raw_password),
         is_lazy=is_lazy,
+        is_spam=is_spam,
     )
     url_obj.short_url_hash = hashids.encode(url_obj.pk)  # generate the short url identifier
     url_obj.save(update_fields=['short_url_hash'])
@@ -38,3 +33,15 @@ def prepare_session(session, url_obj, raw_password):
         'short_url_hash': url_obj.short_url_hash,
         'raw_password': raw_password
     })
+
+
+def detect_spam(session):
+    '''
+    Check the number of short URLs generated per session.
+    Return True if quantity more then allowed.
+    '''
+    if not session.get('spam'):
+        session['spam'] = 1
+    else:
+        session['spam'] += 1
+    return session['spam'] > 5

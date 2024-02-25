@@ -4,18 +4,18 @@ from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from short_urls.forms import UrlCreateForm
 from short_urls.models import Url
-from short_urls.services import create_url_object, prepare_session
+from short_urls.services import create_url_object, prepare_session, detect_spam
 from short_urls.validators import ForbiddenDomainValidator
 
 
 class UrlCreate(View):
     """
-    Create short url when user has typed command in browser's address bar
+    Create short url when user has typed command in a browser's address bar
     """
     validate_url = ForbiddenDomainValidator()
 
@@ -23,7 +23,8 @@ class UrlCreate(View):
         long_url = kwargs.get('url', '')
         try:
             self.validate_url(long_url)
-            url_obj, raw_password = create_url_object(long_url, is_lazy=True)
+            is_spam = detect_spam(self.request.session)
+            url_obj, raw_password = create_url_object(long_url, is_spam, is_lazy=True)
             prepare_session(request.session, url_obj, raw_password)
             return redirect('url-create-success')
         except ValidationError as e:
@@ -38,8 +39,9 @@ class UrlCreateByForm(FormView):
     template_name = 'short_urls/url_create_success.html'
 
     def form_valid(self, form):
+        is_spam = detect_spam(self.request.session)
         long_url = form.cleaned_data.get('long_url')
-        url_obj, raw_password = create_url_object(long_url)
+        url_obj, raw_password = create_url_object(long_url, is_spam)
         prepare_session(self.request.session, url_obj, raw_password)
         return super().form_valid(form)
 
@@ -66,33 +68,21 @@ class UrlCreateSuccess(TemplateView):
 
 class UrlOpen(View):
     """
-    Increment click counter and open a short url on a warning page
+    Increment click counter and redirect from the short url
+    to the requested page or open an intermediate warning page
     """
     def get(self, request, **kwargs):
         short_url_hash = kwargs.get('short_url_hash')
         url_obj = get_object_or_404(Url, short_url_hash=short_url_hash, is_active=True)
         url_obj.clicks_on_short_url = F('clicks_on_short_url') + 1
         url_obj.save()
-        return render(
-            request, 'short_urls/url_open.html',
-            context={'long_url': url_obj.long_url, 'short_url_hash': url_obj.short_url_hash}
-        )
 
-
-class RedirectToLongURL(RedirectView):
-    """
-    This layer of view was added to count clicks on long URL
-    """
-    def get(self, request, *args, **kwargs):
-        self.url_obj = get_object_or_404(
-            Url, short_url_hash=kwargs.get('short_url_hash'), is_active=True
-        )
-        self.url_obj.clicks_on_long_url = F('clicks_on_long_url') + 1
-        self.url_obj.save()
-        return super().get(request, *args, **kwargs)
-
-    def get_redirect_url(self, *args, **kwargs):
-        return self.url_obj.long_url
+        if url_obj.is_spam:
+            return render(
+                request, 'short_urls/url_open.html',
+                context={'long_url': url_obj.long_url, 'short_url_hash': url_obj.short_url_hash}
+            )
+        return redirect(url_obj.long_url)
 
 
 class UrlInformation(TemplateView):
