@@ -1,6 +1,8 @@
 from random import randint
+from time import time
 
 from django.contrib.auth.hashers import make_password
+
 from hashids import Hashids
 
 from short_urls.models import Url
@@ -35,13 +37,19 @@ def prepare_session(session, url_obj, raw_password):
     })
 
 
-def detect_spam(session):
+def detect_spam(session, allowed_period=86400, allowed_spam=5):
     '''
-    Check the number of short URLs generated per session.
+    Check the number of short URLs created for allowed period.
     Return True if quantity more then allowed.
     '''
     if not session.get('spam'):
         session['spam'] = 1
+        session['spam_date'] = int(time())
     else:
+        spam_date = session['spam_date']
+        spam_period = int(time()) - spam_date
+        if spam_period > allowed_period:
+            session['spam_date'] = int(time())
+            session['spam'] = 0
         session['spam'] += 1
-    return session['spam'] > 5
+    return session['spam'] > allowed_spam
