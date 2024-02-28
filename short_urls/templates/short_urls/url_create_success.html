@@ -47,10 +47,21 @@
         </div>
     </div>
     <div class="row justify-content-lg-center">
-        <div class="col-lg-7 text-center text-lg-left mb-5">
+        <div class="col-lg-7 text-center text-lg-left {% if spam > 5 %}mb-3{% else %}mb-5{% endif %}">
             To get information, type in the address bar: <b>{{ request.get_host }}/{{ short_url_hash }}<span class="text-info">/i/</span><span class="text-danger">{{ raw_password }}</span></b>
         </div>
     </div>
+
+    {% if spam > 5 %}
+    <div class="row justify-content-lg-center">
+        <div class="col-lg-7 text-center text-lg-left text-danger">
+           <small><b>Pay attention!!!</b> The spam system allows you to create 5 short links
+            within 24 hours without restrictions. Restricted links will redirect users
+            to a warning page. <b>You have already created {{ spam }} links.</b></small>
+        </div>
+    </div>
+    {% endif %}
+
 </div>
 
 
