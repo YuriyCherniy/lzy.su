@@ -33,7 +33,7 @@ def prepare_session(session, url_obj, raw_password):
     '''
     session.update({
         'short_url_hash': url_obj.short_url_hash,
-        'raw_password': raw_password
+        'raw_password': raw_password,
     })
 
 
