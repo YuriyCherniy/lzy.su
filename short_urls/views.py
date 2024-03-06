@@ -110,7 +110,6 @@ class UrlInformation(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'short_url_clicks': self.url_obj.clicks_on_short_url,
-            'long_url_clicks': self.url_obj.clicks_on_long_url,
             'url_created': self.url_obj.created,
             'long_url': self.url_obj.long_url
         })
