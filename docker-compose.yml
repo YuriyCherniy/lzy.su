@@ -1,10 +1,8 @@
-version: '3.8'
-
 services:
   app:
     build: ./app
-    # volumes:
-    #   - static_data:/app/static
+    volumes:
+      - static_data:/app/static
     restart: always
 
   nginx:
@@ -16,6 +14,7 @@ services:
       - app
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
+      - static_data:/app/static
     restart: always
 
   db:
@@ -29,5 +28,5 @@ services:
     restart: always
 
 volumes:
-  # static_data:
+  static_data:
   postgres_data:
