@@ -5,7 +5,7 @@ services:
     build: ./app
     volumes:
       - static_data:/app/static
-    restart: always
+    # restart: always
 
   nginx:
     build: ./nginx
@@ -14,7 +14,7 @@ services:
       - "443:443"
     depends_on:
       - app
-    restart: always
+    # restart: always
 
   db:
     image: postgres:15
@@ -24,7 +24,7 @@ services:
       POSTGRES_DB: database
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: always
+    # restart: always
 
 volumes:
   static_data:
