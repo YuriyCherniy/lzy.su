@@ -14,6 +14,8 @@ services:
       - "443:443"
     depends_on:
       - app
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     # restart: always
 
   db:
