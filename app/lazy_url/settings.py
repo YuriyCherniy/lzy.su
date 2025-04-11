@@ -98,7 +98,7 @@ POSTGRES_DB = {
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_USER_PASSWORD'),
-        'HOST': 'database',
+        'HOST': 'db',
         'PORT': 5432,
     }
 }
