@@ -15,7 +15,7 @@ services:
     depends_on:
       - app
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /etc/letsencrypt:/etc/letsencrypt
     # restart: always
 
   db:
