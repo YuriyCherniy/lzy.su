@@ -30,3 +30,6 @@ services:
 volumes:
   static_data:
   postgres_data:
+
+env_file:
+  - .env
