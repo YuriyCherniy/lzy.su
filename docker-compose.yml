@@ -32,9 +32,9 @@ services:
     image: certbot/certbot
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - letsencrypt_data:/etc/letsencrypt
-
 
 volumes:
   static_data:
