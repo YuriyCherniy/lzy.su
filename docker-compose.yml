@@ -13,8 +13,9 @@ services:
     depends_on:
       - app
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt
+      # - /etc/letsencrypt:/etc/letsencrypt
       - static_data:/app/static
+      - letsencrypt_data:/etc/letsencrypt
     restart: always
 
   db:
@@ -27,6 +28,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - letsencrypt_data:/etc/letsencrypt
+
+
 volumes:
   static_data:
   postgres_data:
+  letsencrypt_data:
