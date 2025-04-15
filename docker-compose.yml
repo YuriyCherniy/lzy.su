@@ -30,8 +30,8 @@ services:
 
   certbot:
     image: certbot/certbot
-    ports:
-      - "80:80"
+    # ports:
+    #   - "80:80"
     # network_mode: hosе
     volumes:
       - letsencrypt_data:/etc/letsencrypt
