@@ -28,13 +28,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
-  certbot:
-    image: certbot/certbot
+  # certbot:
+    # image: certbot/certbot
     # ports:
     #   - "80:80"
     # network_mode: hosе
-    volumes:
-      - letsencrypt_data:/etc/letsencrypt
+    # volumes:
+      # - letsencrypt_data:/etc/letsencrypt
 
 volumes:
   static_data:
