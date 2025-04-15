@@ -32,7 +32,7 @@ services:
     image: certbot/certbot
     ports:
       - "80:80"
-    network_mode: host
+    # network_mode: hosе
     volumes:
       - letsencrypt_data:/etc/letsencrypt
 
