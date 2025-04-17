@@ -35,6 +35,8 @@ services:
       - "80:80"
     volumes:
       - letsencrypt_data:/etc/letsencrypt
+    depends_on:
+      - nginx
 
 volumes:
   static_data:
