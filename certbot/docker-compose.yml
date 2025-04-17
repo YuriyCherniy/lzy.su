@@ -7,6 +7,8 @@ services:
       - "80:80"
     volumes:
       - letsencrypt_data:/etc/letsencrypt
+      - webroot_data:/var/www/html
 
 volumes:
   letsencrypt_data:
+  webroot_data: 
