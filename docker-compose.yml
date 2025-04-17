@@ -27,15 +27,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
-# run command below to obtain certificates before running docker compose to start the whole project:
-# docker compose run --rm --service-ports certbot certonly --standalone -d there-is-a-bug.ru -d www.there-is-a-bug.ru
-  certbot:
-    image: certbot/certbot
-    # ports:
-    #   - "80:80"
-    volumes:
-      - letsencrypt_data:/etc/letsencrypt
-
 volumes:
   static_data:
   postgres_data:
