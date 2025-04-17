@@ -2,6 +2,7 @@
 # docker compose run --rm --service-ports certbot certonly --standalone -d there-is-a-bug.ru -d www.there-is-a-bug.ru
 services:
   certbot:
+    build: .
     ports:
       - "80:80"
     volumes:
