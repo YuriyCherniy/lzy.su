@@ -10,7 +10,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    network_mode: host
     depends_on:
       - app
     volumes:
@@ -33,7 +32,7 @@ services:
     # image: certbot/certbot
     # ports:
     #   - "80:80"
-    # network_mode: hosе
+    # network_mode: host
     # volumes:
       # - letsencrypt_data:/etc/letsencrypt
 
