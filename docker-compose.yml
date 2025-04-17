@@ -31,12 +31,10 @@ services:
 # docker compose run --rm --service-ports certbot certonly --standalone -d there-is-a-bug.ru -d www.there-is-a-bug.ru
   certbot:
     image: certbot/certbot
-    ports:
-      - "80:80"
+    # ports:
+    #   - "80:80"
     volumes:
       - letsencrypt_data:/etc/letsencrypt
-    depends_on:
-      - nginx
 
 volumes:
   static_data:
