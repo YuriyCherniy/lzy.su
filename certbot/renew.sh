@@ -1,8 +1,5 @@
 #!/bin/bash
-echo test
-cd /home/dock/lzy.su/certbot
-echo test
+cd ${HOME}/lzy.su/certbot
 docker compose run --rm certbot renew --webroot -w /etc/letsencrypt --quiet && \
-cd /home/dock/lzy.su && \
+cd ${HOME}/lzy.su && \
 docker compose exec nginx nginx -s reload
-echo test
