@@ -15,6 +15,7 @@ services:
     volumes:
       - static_data:/app/static
       - letsencrypt_data:/etc/letsencrypt
+      - /var/log/nginx/:/var/log/nginx
     restart: always
 
   db:
