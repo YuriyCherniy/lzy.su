@@ -19,7 +19,7 @@ fi
 log "Running certbot renew (nginx will reload only if certificate is renewed)..."
 CERTBOT_LOG=$(mktemp)
 docker compose run --rm certbot renew --webroot -w /etc/letsencrypt --quiet \
-    --deploy-hook "echo '[ $(date '+%Y-%m-%d %H:%M:%S') ] Deploy hook: reloading nginx...' && cd /home/dock/lzy.su && docker compose exec nginx nginx -s reload && echo '[ $(date '+%Y-%m-%d %H:%M:%S') ] Deploy hook: nginx reload completed.'" 2>&1 | tee "$CERTBOT_LOG"
+    --deploy-hook "echo '[ $(date '+%Y-%m-%d %H:%M:%S') ] Deploy hook: reloading nginx...' && cd ${HOME}/lzy.su && docker compose exec nginx nginx -s reload && echo '[ $(date '+%Y-%m-%d %H:%M:%S') ] Deploy hook: nginx reload completed.'" 2>&1 | tee "$CERTBOT_LOG"
 if [ ${PIPESTATUS[0]} -ne 0 ]; then
     log_err "Certificate renewal failed! Certbot output:"
     cat "$CERTBOT_LOG" >&2
