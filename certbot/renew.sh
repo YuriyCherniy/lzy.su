@@ -16,29 +16,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-log "Running certbot renew..."
-docker compose run --rm certbot renew --webroot -w /etc/letsencrypt --quiet
+log "Running certbot renew (nginx will reload only if certificate is renewed)..."
+docker compose run --rm certbot renew --webroot -w /etc/letsencrypt --quiet \
+    --deploy-hook "echo '[ $(date '+%Y-%m-%d %H:%M:%S') ] Deploy hook: reloading nginx...' && cd /home/dock/lzy.su && docker compose exec nginx nginx -s reload && echo '[ $(date '+%Y-%m-%d %H:%M:%S') ] Deploy hook: nginx reload completed.'"
 if [ $? -ne 0 ]; then
     log_err "Certificate renewal failed!"
     exit 2
 else
-    log "Certificate renewal completed successfully."
-fi
-
-log "Switching to lzy.su directory..."
-cd "${HOME}/lzy.su"
-if [ $? -ne 0 ]; then
-    log_err "Failed to switch to lzy.su directory!"
-    exit 3
-fi
-
-log "Reloading nginx..."
-docker compose exec nginx nginx -s reload
-if [ $? -ne 0 ]; then
-    log_err "nginx reload failed!"
-    exit 4
-else
-    log "nginx reload completed successfully."
+    log "Certificate renewal process finished. If certificate was renewed, nginx was reloaded."
 fi
 
 log "=== Certificate renewal process finished ==="
