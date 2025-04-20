@@ -43,7 +43,7 @@ def main():
         print(proc.stdout, file=sys.stderr)
         sys.exit(2)
     else:
-        log("Certificate renewal process finished. Nginx was reloaded.")
+        log("Certificate renewal process finished. If certificate was renewed, nginx was reloaded.")
 
     log("=== Certificate renewal process finished ===")
 
