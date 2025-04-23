@@ -13,7 +13,7 @@ jobs:
       db:
         image: postgres:15
         env:
-          DB_HOST: db
+          POSTGRES_HOST: db
           POSTGRES_DB: database
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
