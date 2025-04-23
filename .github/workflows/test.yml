@@ -1,7 +1,6 @@
 name: Django Tests
 
-on:
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   test:
@@ -29,7 +28,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: python3 -m pip install -r lzy.su/app/requrements/dev.txt
+        run: python3 -m pip install -r ./app/requirements/dev.txt
       
       - name: Run migrations
         run: python3 ./app/manage.py migrate
