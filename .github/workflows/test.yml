@@ -1,7 +1,9 @@
 name: Django Tests
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - docker
 
 jobs:
   test:
