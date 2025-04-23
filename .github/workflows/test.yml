@@ -12,8 +12,10 @@ jobs:
     services:
       db:
         image: postgres:15
-        env_file:
-          - ./app/.env
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
         volumes:
           - postgres_data:/var/lib/postgresql/data
         ports: ['5432:5432']
