@@ -35,10 +35,18 @@ jobs:
       
       - name: Run migrations
         env:
-          DBURL: postgres://user:password@localhost:5432/database
+          DATABASE_NAME: database
+          DATABASE_USER: user
+          DATABASE_PASS: password
+          DATABASE_HOST: db
+          DATABASE_PORT: 5432
         run: python3 ./app/manage.py migrate
 
       - name: Run tests
         env:
-          DBURL: postgres://user:password@localhost:5432/database
+          DATABASE_NAME: database
+          DATABASE_USER: user
+          DATABASE_PASS: password
+          DATABASE_HOST: db
+          DATABASE_PORT: 5432
         run: python3 ./app/manage.py test
