@@ -13,9 +13,9 @@ jobs:
       db:
         image: postgres:15
         env:
-          POSTGRES_DB: test_db
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: database
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
         volumes:
           - postgres_data:/var/lib/postgresql/data
         ports: ['5432:5432']
