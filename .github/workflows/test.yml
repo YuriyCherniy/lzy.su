@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      postgres:
+      db:
         image: postgres:15
         env:
           POSTGRES_DB: test_db
@@ -34,6 +34,12 @@ jobs:
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
+      
+      - name: Wait for Database
+        run: |
+          for i in {1..10}; do
+            nc -z db 5432 && echo "Database is ready" && break || echo "Waiting for database..." && sleep 5;
+          done
       
       - name: Run migrations
         run: python3 ./app/manage.py migrate
