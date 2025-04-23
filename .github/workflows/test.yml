@@ -13,7 +13,6 @@ jobs:
       db:
         image: postgres:15
         env:
-          POSTGRES_HOST: db
           POSTGRES_DB: database
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
@@ -27,11 +26,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python
+        env:
+          POSTGRES_HOST: localhost
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
       - name: Install dependencies
+        env:
+          POSTGRES_HOST: localhost
         run: python3 -m pip install -r ./app/requirements/dev.txt
       
       - name: Run migrations
