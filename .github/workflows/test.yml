@@ -8,28 +8,29 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     container:
-      image: postgres:15
-      env:
-        POSTGRES_DB: database
-        POSTGRES_USER: user
-        POSTGRES_PASSWORD: password
-        POSTGRES_HOST: db
-        POSTGRES_PORT: 5432
-        # ports: ['5432:5432']
-        # options: >-
-        #   --health-cmd pg_isready
-        #   --health-interval 10s
-        #   --health-timeout 5s
-        #   --health-retries 5
+      image: python:3.11
+
+    services:
+      db:
+        image: postgres:15
+        env:
+          POSTGRES_DB: database
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+        # with:
+        #   python-version: '3.11'
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
