@@ -16,8 +16,6 @@ jobs:
           POSTGRES_DB: database
           POSTGRES_USER: user
           POSTGRES_PASSWORD: password
-        volumes:
-          - postgres_data:/var/lib/postgresql/data
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
@@ -35,15 +33,7 @@ jobs:
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
       
-      - name: Wait for Database
-        run: |
-          for i in {1..10}; do
-            nc -z db 5432 && echo "Database is ready" && break || echo "Waiting for database..." && sleep 5;
-          done
-      
       - name: Run migrations
-        env:
-          DATABASE_URL: postgres://user:password@localhost:5432/database
         run: python3 ./app/manage.py migrate
 
       - name: Run tests
