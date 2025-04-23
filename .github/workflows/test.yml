@@ -42,6 +42,8 @@ jobs:
           done
       
       - name: Run migrations
+        env:
+          DATABASE_URL: postgres://user:password@localhost:5432/database
         run: python3 ./app/manage.py migrate
 
       - name: Run tests
