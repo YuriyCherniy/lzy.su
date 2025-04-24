@@ -6,7 +6,19 @@ on:
       - docker
 
 jobs:
-  test:
+  linting:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.11
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: python3 -m pip install -r ./app/requirements/dev.txt
+      - name: Lint with flake8
+        run: flake8 ./app
+
+  testing:
     runs-on: ubuntu-latest
     container:
       image: python:3.11
