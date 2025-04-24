@@ -1,7 +1,7 @@
 name: Django Tests
 
 on:
-  push:
+  workflow_dispatch:
     branches:
       - docker
 
@@ -14,8 +14,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies
-        # run: python3 -m pip install -r ./app/requirements/dev.txt
-        run: python3 -m pip install flake8
+        run: python3 -m pip install -r ./app/requirements/dev.txt
       - name: Lint with flake8
         run: flake8 ./app
 
