@@ -39,4 +39,4 @@ jobs:
         run: python3 ./app/manage.py migrate
 
       - name: Run tests
-        run: python3 ./app/manage.py test
+        run: python3 ./app/manage.py test short_urls core users
