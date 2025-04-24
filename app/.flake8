@@ -6,3 +6,5 @@ exclude =
     .venv,
 
 max-line-length = 119
+
+ignore = E501
