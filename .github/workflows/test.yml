@@ -33,8 +33,5 @@ jobs:
       - name: Run migrations
         run: python3 ./app/manage.py migrate
 
-      # - name: Run tests
-      #   run: python3 ./app/manage.py test short_urls core users
-
-      - name: List templates
-        run: ls -lR ./app/templates
+      - name: Run tests
+        run: python3 ./app/manage.py test short_urls core users
