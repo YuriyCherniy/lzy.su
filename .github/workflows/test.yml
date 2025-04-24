@@ -19,6 +19,7 @@ jobs:
         run: flake8 ./app
 
   testing:
+    depends_on: [linting]
     runs-on: ubuntu-latest
     container:
       image: python:3.11
