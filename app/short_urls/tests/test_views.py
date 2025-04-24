@@ -39,7 +39,7 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.get(
             reverse(
                 'url-information', kwargs={'short_url_hash': url_obj.short_url_hash, 'password': url_obj.password})
-            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_url_delete_view_status_code_200(self):
@@ -47,7 +47,7 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.get(
             reverse(
                 'url-information', kwargs={'short_url_hash': url_obj.short_url_hash, 'password': url_obj.password})
-            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_url_open_view_status_code_200_is_spam_true(self):
