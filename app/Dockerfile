@@ -7,4 +7,3 @@ RUN pip3 install -r requirements/prod.txt
 COPY . .
 RUN ["chmod", "+x", "docker-entrypoint.sh"]
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
-#
