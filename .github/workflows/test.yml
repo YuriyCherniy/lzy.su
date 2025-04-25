@@ -13,6 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache pip dependencies
+        uses: action/cache@v4
+        with:
+          path: /root/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
       - name: Lint with flake8
@@ -39,6 +47,14 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: /root/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
