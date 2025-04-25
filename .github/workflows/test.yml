@@ -16,13 +16,15 @@ jobs:
       - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
-          path: /github/home/.cache/pip
+          path: /root/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
+        env:
+          PIP_CACHE_DIR: /root/.cache/pip
       - name: Lint with flake8
         run: flake8 ./app
 
@@ -51,13 +53,15 @@ jobs:
       - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
-          path: /github/home/.cache/pip
+          path: /root/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
+        env:
+          PIP_CACHE_DIR: /root/.cache/pip 
       
       - name: Run migrations
         run: python3 ./app/manage.py migrate
