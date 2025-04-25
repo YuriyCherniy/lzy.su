@@ -1,10 +1,10 @@
 [flake8]
 exclude =
-    migrations,
+    **/migrations/*,
     __pycache__,
     .gitignore,
     .venv,
 
 max-line-length = 119
 
-ignore = E501
+; ignore = E501
