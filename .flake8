@@ -5,6 +5,6 @@ exclude =
     .venv,
 
 per-file-ignores =
-    **/migrations/*.py: E501,F401
+    **/migrations/*.py: E501
 
 max-line-length = 119
