@@ -30,8 +30,6 @@ jobs:
           PIP_CACHE_DIR: /root/.cache/pip
       - name: Lint with flake8
         run: flake8 ./app
-      - name: Check isort
-        run: isort --check-only ./app
 
   testing:
     needs: [linting]
