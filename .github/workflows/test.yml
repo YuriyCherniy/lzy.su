@@ -16,7 +16,7 @@ jobs:
       - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
-          path: /github/.cache/pip
+          path: /root/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
@@ -51,7 +51,7 @@ jobs:
       - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
-          path: /github/.cache/pip
+          path: /root/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
