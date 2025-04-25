@@ -7,5 +7,6 @@ COPY requirements/base.txt requirements/base.txt
 COPY requirements/dev.txt requirements/dev.txt
 # RUN pip3 install -r requirements.txt
 RUN pip3 install -r requirements/dev.txt
+COPY . .
 RUN ["chmod", "+x", "docker-entrypoint.sh"]
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
