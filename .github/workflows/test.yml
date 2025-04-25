@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - docker
-  workflow_dispatch:
-    branches:
-      - docker
-    path-ignore:
+    paths-ignore:
       - 'app/Dockerfile'
       - 'nginx/Dockerfile'
       - 'certbot/Dockerfile'
       - '.github/workflows/test.yml'
+  workflow_dispatch:
+    branches:
+      - docker
 
 jobs:
   linting:
