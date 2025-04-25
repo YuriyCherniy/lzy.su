@@ -5,7 +5,7 @@ WORKDIR /app
 # COPY requirements/base.txt requirements/base.txt
 # COPY requirements/prod.txt requirements/prod.txt
 COPY requirements/base.txt requirements/prod.txt /requirements/
-RUN pip3 install -r ./requirements/prod.txt
+RUN pip3 install -r /app/requirements/prod.txt
 COPY . .
 RUN ["chmod", "+x", "docker-entrypoint.sh"]
 ENTRYPOINT [ "./docker-entrypoint.sh" ]
