@@ -19,7 +19,7 @@ services:
     restart: always
 
   db:
-    image: postgres:15
+    image: postgres:17.4
     env_file:
     - ./app/.env
     volumes:

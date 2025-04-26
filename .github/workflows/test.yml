@@ -45,7 +45,7 @@ jobs:
 
     services:
       db:
-        image: postgres:15
+        image: postgres:17.4
         env:
           POSTGRES_DB: database
           POSTGRES_USER: user
