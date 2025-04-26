@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - docker
-    # paths-ignore:
-    #   - 'app/Dockerfile'
-    #   - 'nginx/Dockerfile'
-    #   - 'certbot/Dockerfile'
-    #   - 'certbot/docker-compose.yml'
-    #   - '.github/workflows/test.yml'
-    #   - 'docker-compose.yml'
+    paths-ignore:
+      - 'app/Dockerfile'
+      - 'nginx/Dockerfile'
+      - 'certbot/Dockerfile'
+      - 'certbot/docker-compose.yml'
+      - '.github/workflows/test.yml'
+      - 'docker-compose.yml'
   workflow_dispatch:
     branches:
       - docker
