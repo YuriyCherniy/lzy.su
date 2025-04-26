@@ -8,7 +8,9 @@ on:
       - 'app/Dockerfile'
       - 'nginx/Dockerfile'
       - 'certbot/Dockerfile'
+      - 'certbot/docker-compose.yml'
       - '.github/workflows/test.yml'
+      - 'docker-compose.yml'
   workflow_dispatch:
     branches:
       - docker
