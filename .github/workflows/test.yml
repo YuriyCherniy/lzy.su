@@ -78,7 +78,6 @@ jobs:
       - name: Run tests
         run: python3 ./app/manage.py test short_urls core users
 
-jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
