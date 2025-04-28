@@ -10,7 +10,7 @@ To renew existing certificates manually, when the project is already running (Ng
 docker compose run --rm certbot renew --webroot -w /etc/letsencrypt
 ```
 
-To create a cron job to renew certificates automatically, add the following line to the crontab: 
+To create a cron job to renew certificates automatically, add the following line to the crontab:
 
 ```
 0 0 * * * python3 ~/lzy.su/certbot/renew.py >> /var/log/certbot-renew.log 2>&1
