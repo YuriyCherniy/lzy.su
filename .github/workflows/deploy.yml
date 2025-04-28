@@ -11,4 +11,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: uname -a
+          script: |
+            cd ~/lzy.su
+            git pull origin docker
+            docker compose down
+            docker compose up -d
