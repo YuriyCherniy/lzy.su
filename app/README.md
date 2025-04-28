@@ -1,4 +1,4 @@
-_**Choose language ENG/[RUS](https://github.com/YuriyCherniy/lzy.su/blob/main/docs/translations/how_to_run.ru.md)**_
+_**Choose language ENG/[RUS](https://github.com/YuriyCherniy/lzy.su/blob/docker/docs/translations/how_to_run.ru.md)**_
 
 ### To run locally, do the usual: ###
 
