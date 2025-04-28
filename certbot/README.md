@@ -5,7 +5,13 @@ docker compose run --rm --service-ports certbot certonly --standalone -d mydomai
 ```
 
 To renew existing certificates manually when project is already running. Nginx must be running and reloaded after renewal.
-docker compose run --rm certbot renew --webroot -w /etc/letsencrypt
 
-create cron job to renew certificates automatically:
-python3 /path/to/script/renew.py >> /var/log/certbot-renew.log 2>&1
+```
+docker compose run --rm certbot renew --webroot -w /etc/letsencrypt
+```
+
+To create a cron job to renew certificates automatically add the following line to the crontab: 
+
+```
+0 0 * * * python3 ~/lzy.su/certbot/renew.py >> /var/log/certbot-renew.log 2>&1
+```
