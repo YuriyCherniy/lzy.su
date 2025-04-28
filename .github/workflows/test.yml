@@ -9,7 +9,7 @@ on:
       - 'nginx/Dockerfile'
       - 'certbot/Dockerfile'
       - 'certbot/docker-compose.yml'
-      # - '.github/workflows/test.yml'
+      - '.github/workflows/test.yml'
       - 'docker-compose.yml'
   workflow_dispatch:
     branches:
@@ -78,14 +78,3 @@ jobs:
       - name: Run tests
         run: python3 ./app/manage.py test short_urls core users
 
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Execute remote ssh commands using ssh key
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: ls -la
