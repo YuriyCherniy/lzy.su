@@ -1,4 +1,4 @@
-name: Django Tests
+name: Django Lint and Tests
 
 on:
   push:
@@ -8,12 +8,9 @@ on:
       - 'app/Dockerfile'
       - 'nginx/Dockerfile'
       - 'certbot/Dockerfile'
-      - 'certbot/docker-compose.yml'
-      - '.github/workflows/test.yml'
       - 'docker-compose.yml'
-  workflow_dispatch:
-    branches:
-      - docker
+      - 'certbot/docker-compose.yml'
+      - '.github/workflows/lint_and_test.yml'
 
 jobs:
   linting:
@@ -34,6 +31,7 @@ jobs:
         run: python3 -m pip install -r ./app/requirements/dev.txt
         env:
           PIP_CACHE_DIR: /root/.cache/pip
+
       - name: Lint with flake8
         run: flake8 ./app
 

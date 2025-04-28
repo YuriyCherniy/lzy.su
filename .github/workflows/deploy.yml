@@ -1,5 +1,6 @@
-name: Remote SSH Commands
+name: Deploy by SSH
 on: workflow_dispatch
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
