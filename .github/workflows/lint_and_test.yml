@@ -1,7 +1,7 @@
 name: Django Lint and Tests
 
 on:
-  push:
+  workflow_dispatch:
     branches:
       - docker
     paths-ignore:

@@ -12,7 +12,7 @@ jobs:
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
-          OUTPUT=$(python3 ./app/manage.py check --deploy)
+          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
             echo "Django deploy warnings found!"
@@ -20,19 +20,19 @@ jobs:
           fi
         shell: bash
 
-  deploy:
-    needs: [check_django_deploy]
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Execute remote ssh commands using ssh key
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ~/lzy.su
-            git pull origin docker
-            docker compose down
-            docker compose up --build -d
+  # deploy:
+  #   needs: [check_django_deploy]
+  #   runs-on: ubuntu-24.04
+  #   steps:
+  #     - name: Execute remote ssh commands using ssh key
+  #       uses: appleboy/ssh-action@v1
+  #       with:
+  #         host: ${{ secrets.HOST }}
+  #         username: ${{ secrets.USER }}
+  #         key: ${{ secrets.KEY }}
+  #         port: ${{ secrets.PORT }}
+  #         script: |
+  #           cd ~/lzy.su
+  #           git pull origin docker
+  #           docker compose down
+  #           docker compose up --build -d
