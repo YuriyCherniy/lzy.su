@@ -11,7 +11,7 @@ jobs:
 
       - name: Check deploy environment
         run: |
-          cd ~/lzy.su/app
+          cd /home/dock/lzy.su/app
           python3 manage.py check --deploy
 
 
