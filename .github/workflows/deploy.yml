@@ -16,7 +16,7 @@ jobs:
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
             echo "Django deploy warnings found!"
-            exit 0
+            exit 1
           fi
 
   # deploy:
