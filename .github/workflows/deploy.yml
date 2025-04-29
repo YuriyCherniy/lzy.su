@@ -4,19 +4,15 @@ on: workflow_dispatch
 jobs:
   check_django_deploy:
     runs-on: ubuntu-24.04
+    container:
+      image: python:3.11
     steps:
+      - uses: actions/checkout@v4
+
       - name: Check deploy environment
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ~/lzy.su/app
-            python3 manage.py check --deploy
-
-
+        run: |
+          python3 -m pip install -r ./app/requirements/dev.txt
+          python3 ./app/manage.py check --deploy
 
   deploy:
     needs: [check_django_deploy]
