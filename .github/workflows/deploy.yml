@@ -2,8 +2,23 @@ name: Deploy by SSH
 on: workflow_dispatch
 
 jobs:
+  check_django_deploy:
+    runs-on: ubuntu-24.04
+    container:
+      image: python:3.11
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check deploy environment
+        run: |
+          cd ~/lzy.su/app
+          python3 manage.py check --deploy
+
+
+
   deploy:
-    runs-on: ubuntu-latest
+    needs: [check_django_deploy]
+    runs-on: ubuntu-24.04
     steps:
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1

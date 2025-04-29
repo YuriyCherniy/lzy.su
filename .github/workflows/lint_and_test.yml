@@ -6,15 +6,14 @@ on:
       - docker
     paths-ignore:
       - 'app/Dockerfile'
-      - 'nginx/Dockerfile'
-      - 'certbot/Dockerfile'
+      - 'nginx/*'
+      - 'certbot/*'
       - 'docker-compose.yml'
-      - 'certbot/docker-compose.yml'
-      - '.github/workflows/lint_and_test.yml'
+      - '.github/*'
 
 jobs:
   linting:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
     steps:
@@ -37,7 +36,7 @@ jobs:
 
   testing:
     needs: [linting]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
 
