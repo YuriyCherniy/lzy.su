@@ -10,12 +10,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check deploy environment
-        # env:
-        #   PIP_CACHE_DIR: /root/.cache/pip
+        env:
+          PIP_CACHE_DIR: /home/gh-actions/.cache/pip
         run: |
-          adduser --disabled-password --gecos "" testing-user
-          usermod -aG sudo testing-user
-          su testing-user
+          adduser --disabled-password --gecos "" gh-actions
+          usermod -aG sudo gh-actions
+          su gh-actions
           python3 -m pip install -r ./app/requirements/dev.txt
           OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
           echo "$OUTPUT"
