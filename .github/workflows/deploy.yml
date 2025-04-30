@@ -1,5 +1,5 @@
 name: Deploy by SSH
-on: workflow_dispatch
+on: [workflow_dispatch, push]
 
 jobs:
   check_django_deploy:
