@@ -10,31 +10,31 @@ jobs:
         with:
           python-version: '3.11'
 
-      # - name: Check deploy environment
-      #   run: |
-      #     python -m pip install -r ./app/requirements/dev.txt
-      #     OUTPUT=$(python ./app/manage.py check --deploy 2>&1)
-      #     echo "$OUTPUT"
-      #     if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-      #       echo "Django deploy warnings found!"
-      #       exit 1
-      #     fi
-      #   shell: bash
-
       - name: Check deploy environment
         run: |
           python -m pip install -r ./app/requirements/dev.txt
-          echo "Current directory: $(pwd)"
-          echo "Directory contents:"
-          ls -la ./app
-          echo "Running Django check..."
-          python ./app/manage.py check --deploy || {
-            echo "Exit code: $?"
-            echo "Full error output:"
-            python ./app/manage.py check --deploy 2>&1
+          OUTPUT=$(python ./app/manage.py check --deploy 2>&1)
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "WARNINGS:"; then
+            echo "Django deploy warnings found!"
             exit 1
-          }
-        shell: bash
+          fi
+        # shell: bash
+
+      # - name: Check deploy environment
+      #   run: |
+      #     python -m pip install -r ./app/requirements/dev.txt
+      #     echo "Current directory: $(pwd)"
+      #     echo "Directory contents:"
+      #     ls -la ./app
+      #     echo "Running Django check..."
+      #     python ./app/manage.py check --deploy || {
+      #       echo "Exit code: $?"
+      #       echo "Full error output:"
+      #       python ./app/manage.py check --deploy 2>&1
+      #       exit 1
+      #     }
+      #   shell: bash
 
 
 

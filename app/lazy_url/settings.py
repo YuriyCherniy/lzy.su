@@ -3,8 +3,6 @@ from pathlib import Path
 
 import environ
 
-from django.core.checks import Warnings
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,9 +33,9 @@ else:
     ALLOWED_HOSTS = ['*']
 
 
-SILENCED_SYSTEM_CHECKS = [
-    'security.W004', # HSTS Strict-Transport-Security header already set in lzy.su.conf
-]
+# SILENCED_SYSTEM_CHECKS = [
+#     'security.W004', # HSTS Strict-Transport-Security header already set in lzy.su.conf
+# ]
 
 
 # Application definition
