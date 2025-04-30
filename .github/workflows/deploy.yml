@@ -4,8 +4,6 @@ on: workflow_dispatch
 jobs:
   check_django_deploy:
     runs-on: ubuntu-24.04
-    container:
-      image: ubuntu
     steps:
       - uses: actions/checkout@v4
 
