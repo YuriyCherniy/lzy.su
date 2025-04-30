@@ -25,7 +25,7 @@ jobs:
             echo "Django deploy warnings found!"
             exit 1
           fi
-        # shell: bash
+        shell: bash
 
   # deploy:
   #   needs: [check_django_deploy]
