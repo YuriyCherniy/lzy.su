@@ -19,7 +19,8 @@ environ.Env.read_env(env_file)
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG')
+# DEBUG = env.bool('DEBUG')
+DEBUG = True
 
 # Security setting for production.
 if not DEBUG:
@@ -35,6 +36,7 @@ else:
 
 SILENCED_SYSTEM_CHECKS = [
     'security.W004',  # HSTS Strict-Transport-Security header already set in lzy.su.conf
+    'security.W008',  # SSL redirect already set in lzy.su.conf
 ]
 
 
