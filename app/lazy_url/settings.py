@@ -36,7 +36,7 @@ else:
 
 
 SILENCED_SYSTEM_CHECKS = [
-    'security.W004',
+    'security.W004', # HSTS Strict-Transport-Security header already set in lzy.su.conf
 ]
 
 
