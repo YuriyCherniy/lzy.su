@@ -5,21 +5,17 @@ jobs:
   check_django_deploy:
     runs-on: ubuntu-24.04
     container:
-      image: ubuntu:24.04
+      image: ubuntu
     steps:
       - uses: actions/checkout@v4
 
       - name: Check deploy environment
-        env:
-          PIP_CACHE_DIR: /home/gh-actions/.cache/pip
-          PATH: /home/gh-actions/.local/bin:$PATH
+        # env:
+        #   PIP_CACHE_DIR: /home/gh-actions/.cache/pip
+        #   PATH: /home/gh-actions/.local/bin:$PATH
         run: |
-          apt update
-          apt install -y sudo
-          adduser --disabled-password --gecos "" gh-actions
-          usermod -aG sudo gh-actions
-          sudo -u gh-actions python3 -m pip install -r ./app/requirements/dev.txt
-          sudo -u gh-actions OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
+          python3 -m pip install -r ./app/requirements/dev.txt
+          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
             echo "Django deploy warnings found!"
