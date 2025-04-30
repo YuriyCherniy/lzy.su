@@ -19,21 +19,17 @@ environ.Env.read_env(env_file)
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = env.bool('DEBUG')
-DEBUG = False
+DEBUG = env.bool('DEBUG')
 
 # Security setting for production.
 if not DEBUG:
-    # SECURE_HSTS_SECONDS = 31536000
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    # SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    # SECURE_HSTS_PRELOAD = True
     ALLOWED_HOSTS = ['lzy.su']
 else:
     ALLOWED_HOSTS = ['*']
 
-
+#  Disable security checks that are already set in nginx config.
 SILENCED_SYSTEM_CHECKS = [
     'security.W004',  # HSTS Strict-Transport-Security header already set in lzy.su.conf
     'security.W008',  # SSL redirect already set in lzy.su.conf
