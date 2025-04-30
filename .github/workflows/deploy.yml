@@ -12,6 +12,7 @@ jobs:
       - name: Check deploy environment
         env:
           PIP_CACHE_DIR: /home/gh-actions/.cache/pip
+          PATH: /home/gh-actions/.local/bin:$PATH
         run: |
           apt update
           apt install -y sudo
