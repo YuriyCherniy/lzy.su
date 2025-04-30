@@ -5,7 +5,7 @@ jobs:
   check_django_deploy:
     runs-on: ubuntu-24.04
     container:
-      image: python:3.11
+      image: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
 
