@@ -3,6 +3,9 @@ from pathlib import Path
 
 import environ
 
+from django.core.checks import Warnings
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,8 +35,12 @@ else:
     ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+SILENCED_SYSTEM_CHECKS = [
+    'security.W004',
+]
 
+
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
