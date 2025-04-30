@@ -13,6 +13,8 @@ jobs:
         env:
           PIP_CACHE_DIR: /home/gh-actions/.cache/pip
         run: |
+          apt apdate
+          apt install -y sudo
           adduser --disabled-password --gecos "" gh-actions
           usermod -aG sudo gh-actions
           sudo -u gh-actions python3 -m pip install -r ./app/requirements/dev.txt
@@ -22,7 +24,7 @@ jobs:
             echo "Django deploy warnings found!"
             exit 1
           fi
-        shell: bash
+        # shell: bash
 
   # deploy:
   #   needs: [check_django_deploy]
