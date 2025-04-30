@@ -33,9 +33,9 @@ else:
     ALLOWED_HOSTS = ['*']
 
 
-# SILENCED_SYSTEM_CHECKS = [
-#     'security.W004', # HSTS Strict-Transport-Security header already set in lzy.su.conf
-# ]
+SILENCED_SYSTEM_CHECKS = [
+    'security.W004', # HSTS Strict-Transport-Security header already set in lzy.su.conf
+]
 
 
 # Application definition
