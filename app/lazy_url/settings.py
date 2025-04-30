@@ -29,7 +29,7 @@ if not DEBUG:
 else:
     ALLOWED_HOSTS = ['*']
 
-#  Disable security checks that are already set in nginx config.
+#  Disable security checks that are already set in Nginx config.
 SILENCED_SYSTEM_CHECKS = [
     'security.W004',  # HSTS Strict-Transport-Security header already set in lzy.su.conf
     'security.W008',  # SSL redirect already set in lzy.su.conf
