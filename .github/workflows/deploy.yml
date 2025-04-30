@@ -15,7 +15,7 @@ jobs:
         run: |
           adduser --disabled-password --gecos "" gh-actions
           usermod -aG sudo gh-actions
-          su gh-actions
+          sudo -su gh-actions
           whoami
           python3 -m pip install -r ./app/requirements/dev.txt
           OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
