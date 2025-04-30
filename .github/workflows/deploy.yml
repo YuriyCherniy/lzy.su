@@ -10,9 +10,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check deploy environment
-        env:
-          PIP_CACHE_DIR: /root/.cache/pip
+        # env:
+        #   PIP_CACHE_DIR: /root/.cache/pip
         run: |
+          adduser testing-user
+          usermod -aG sudo testing-user
+          su testing-user
           python3 -m pip install -r ./app/requirements/dev.txt
           OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
           echo "$OUTPUT"
