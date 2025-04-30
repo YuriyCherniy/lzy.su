@@ -19,7 +19,7 @@ jobs:
             echo "Django deploy warnings found!"
             exit 1
           fi
-        # shell: bash
+        shell: bash
 
       # - name: Check deploy environment
       #   run: |
