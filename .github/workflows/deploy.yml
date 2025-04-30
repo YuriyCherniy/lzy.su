@@ -10,13 +10,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Check deploy environment
+        env:
+          PIP_CACHE_DIR: /root/.cache/pip
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
           OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
             echo "Django deploy warnings found!"
-            exit 0
+            exit 1
           fi
 
   # deploy:
