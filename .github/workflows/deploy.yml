@@ -13,7 +13,7 @@ jobs:
         env:
           PIP_CACHE_DIR: /home/gh-actions/.cache/pip
         run: |
-          apt apdate
+          apt update
           apt install -y sudo
           adduser --disabled-password --gecos "" gh-actions
           usermod -aG sudo gh-actions
