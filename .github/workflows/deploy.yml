@@ -34,8 +34,8 @@ jobs:
           # Дописываем остальные переменные
           echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
           echo "DEBUG=False" >> ./app/.env
-
-          - name: Check deploy environment
+          
+      - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
           OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
