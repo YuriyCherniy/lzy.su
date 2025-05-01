@@ -54,12 +54,12 @@ jobs:
 
       - name: Set deploy variables
         run: |
-          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> .env
-          echo "DEBUG=False" >> .env
-          echo "POSTGRES=True" >> .env
-          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> .env
-          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> .env
+          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
+          echo "DEBUG=False" >> ./app/.env
+          echo "POSTGRES=True" >> ./app/.env
+          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
+          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
 
       - name: Check deploy environment
         run: |
