@@ -14,8 +14,17 @@ jobs:
 
       - name: Set deploy variables
         run: |
+          # Отладка значения секрета
+          echo "=== Debug SECRET_KEY ==="
+          SECRET_VALUE="${{ secrets.PRODUCTION_SECRET_KEY }}"
+          echo "Secret length: ${#SECRET_VALUE}"
+          
+          # Создаем директорию если нужно
+          mkdir -p ./app
+          
+          # Записываем переменные с перезаписью файла
           {
-            echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}"
+            echo "SECRET_KEY=${SECRET_VALUE}"
             echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}"
             echo "DEBUG=False"
             echo "POSTGRES=True"
@@ -23,6 +32,12 @@ jobs:
             echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}"
             echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}"
           } > ./app/.env
+          
+          # Проверяем что записалось
+          echo "=== Checking .env file ==="
+          echo "First line of .env:"
+          head -n 1 ./app/.env | sed 's/\(SECRET_KEY=\).*/\1[MASKED]/'
+
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
