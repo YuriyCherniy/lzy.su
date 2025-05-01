@@ -10,6 +10,11 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Set deploy variables
+        run: |
+          echo "PRODUCTION_SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> .env
+          echo "DEBUG=False" >> .env
+
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
