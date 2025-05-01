@@ -40,7 +40,7 @@ jobs:
           cat ./app/.env | sed 's/=.*/=***/'
 
           python3 -m pip install -r ./app/requirements/dev.txt
-          # Запуск проверки Django с полным выводом ошибок
+
           echo "Запуск проверки Django..."
           if ! OUTPUT=$(DJANGO_SETTINGS_MODULE=app.settings python3 ./app/manage.py check --deploy --traceback 2>&1); then
             echo "ОШИБКА: Проверка Django не прошла:"
@@ -49,13 +49,11 @@ jobs:
             echo "----------------------------------------"
             exit 1
           fi
-          
-          # Проверка предупреждений
+
+          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
+          echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-            echo "ВНИМАНИЕ: Найдены предупреждения Django:"
-            echo "----------------------------------------"
-            echo "$OUTPUT"
-            echo "----------------------------------------"
+            echo "Django deploy warnings found!"
             exit 1
           fi
         # shell: bash
