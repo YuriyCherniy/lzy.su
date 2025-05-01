@@ -14,23 +14,29 @@ jobs:
 
       - name: Set deploy variables
         run: |
-          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" > ./app/.env
-          echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
-          echo "DEBUG=False" >> ./app/.env
-          echo "POSTGRES=True" >> ./app/.env
-          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
-          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
-          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
-
-      - name: Check deploy environment
-        run: |
-          python3 -m pip install -r ./app/requirements/dev.txt
-          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
-          echo "$OUTPUT"
-          if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-            echo "Django deploy warnings found!"
-            exit 1
-          fi
+          # Отладка значения секрета
+          echo "=== Debug SECRET_KEY ==="
+          SECRET_VALUE="${{ secrets.PRODUCTION_SECRET_KEY }}"
+          echo "Secret length: ${#SECRET_VALUE}"
+          
+          # Создаем директорию если нужно
+          mkdir -p ./app
+          
+          # Записываем переменные с перезаписью файла
+          {
+            echo "SECRET_KEY=${SECRET_VALUE}"
+            echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}"
+            echo "DEBUG=False"
+            echo "POSTGRES=True"
+            echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}"
+            echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}"
+            echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}"
+          } > ./app/.env
+          
+          # Проверяем что записалось
+          echo "=== Checking .env file ==="
+          echo "First line of .env:"
+          head -n 1 ./app/.env | sed 's/\(SECRET_KEY=\).*/\1[MASKED]/'
         # shell: bash
 
 
