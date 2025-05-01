@@ -36,11 +36,26 @@ jobs:
           
       - name: Check deploy environment
         run: |
+          echo "Проверка .env файла:"
+          cat ./app/.env | sed 's/=.*/=***/'
+
           python3 -m pip install -r ./app/requirements/dev.txt
-          OUTPUT=$(python3 ./app/manage.py check --deploy --traceback 2>&1)
-          echo "$OUTPUT"
+          # Запуск проверки Django с полным выводом ошибок
+          echo "Запуск проверки Django..."
+          if ! OUTPUT=$(DJANGO_SETTINGS_MODULE=app.settings python3 ./app/manage.py check --deploy --traceback 2>&1); then
+            echo "ОШИБКА: Проверка Django не прошла:"
+            echo "----------------------------------------"
+            echo "$OUTPUT"
+            echo "----------------------------------------"
+            exit 1
+          fi
+          
+          # Проверка предупреждений
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-            echo "Django deploy warnings found!"
+            echo "ВНИМАНИЕ: Найдены предупреждения Django:"
+            echo "----------------------------------------"
+            echo "$OUTPUT"
+            echo "----------------------------------------"
             exit 1
           fi
         # shell: bash
