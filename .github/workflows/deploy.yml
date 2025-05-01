@@ -4,6 +4,8 @@ on: [workflow_dispatch, push]
 jobs:
   check_django_deploy:
     runs-on: ubuntu-24.04
+    environment:
+      name: Production Environment
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
