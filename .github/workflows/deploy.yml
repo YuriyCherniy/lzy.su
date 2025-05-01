@@ -31,7 +31,7 @@ jobs:
             echo "POSTGRES_DB=\"$POSTGRES_DB\""
             echo "POSTGRES_USER=\"$POSTGRES_USER\""
             echo "POSTGRES_PASSWORD=\"$POSTGRES_PASSWORD\""
-          } > .env
+          } > ./app/.env
           
       - name: Check deploy environment
         run: |
