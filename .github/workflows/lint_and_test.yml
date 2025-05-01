@@ -55,6 +55,9 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Checkout code and set pip cache
+        uses: actions/checkout@v4
+
       - name: Set .env variables
         run: |
           mkdir -p ./app
@@ -67,10 +70,6 @@ jobs:
           echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
           ls -la ./app
           cat ./app/.env
-
-      - name: Checkout code and set pip cache
-        uses: actions/checkout@v4
-      - uses: actions/checkout@v4
 
       - name: Cache pip dependencies
         uses: actions/cache@v4
