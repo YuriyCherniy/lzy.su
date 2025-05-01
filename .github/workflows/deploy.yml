@@ -26,7 +26,7 @@ jobs:
         uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
-          envkey_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
+          envkey_SECRET_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
           envkey_DEBUG: False
           envkey_POSTGRES: True
           envkey_POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
