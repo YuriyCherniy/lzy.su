@@ -14,8 +14,8 @@ jobs:
 
       - name: Set deploy variables
         run: |
-          echo "PRODUCTION_SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> .env
-          echo "DEBUG=False" >> .env
+          echo "PRODUCTION_SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> /app/.env
+          echo "DEBUG=False" >> /app/.env
 
       - name: Check deploy environment
         run: |
