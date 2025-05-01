@@ -42,7 +42,7 @@ jobs:
           python3 -m pip install -r ./app/requirements/dev.txt
 
           echo "Запуск проверки Django..."
-          if ! OUTPUT=$(DJANGO_SETTINGS_MODULE=app.settings python3 ./app/manage.py check --deploy --traceback 2>&1); then
+          if ! OUTPUT=$(DJANGO_SETTINGS_MODULE=lazy_url.settings python3 ./app/manage.py check --deploy --traceback 2>&1); then
             echo "ОШИБКА: Проверка Django не прошла:"
             echo "----------------------------------------"
             echo "$OUTPUT"
