@@ -27,7 +27,7 @@ jobs:
           python3 -m pip install -r ./app/requirements/dev.txt
 
           #  Capture and show errors raised by Django itself
-          if ! OUTPUT=$(python3 ./app/manage.py check --deploy --traceback 2>&1); then
+          if ! OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1); then
               echo "$OUTPUT"
               exit 1
           fi
