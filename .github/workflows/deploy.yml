@@ -36,16 +36,18 @@ jobs:
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
+          echo "Running Django deployment checks..."
           
-          echo "Running Django deploy check..."
           OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1 | grep -A 5 "WARNINGS:")
           
           if [ ! -z "$OUTPUT" ]; then
-            echo "🚨 Django deploy warnings found:"
+            echo "CRITICAL: Django deploy warnings detected:"
+            echo "----------------------------------------"
             echo "$OUTPUT"
+            echo "----------------------------------------"
             exit 1
           else
-            echo "✅ No Django deploy warnings found"
+            echo "SUCCESS: No Django deployment warnings found"
           fi
         # shell: bash
 
