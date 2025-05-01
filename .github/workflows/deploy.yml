@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: '3.11'
 
-                - name: Set deploy variables
+      - name: Set deploy variables
         run: |
           echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
           echo "DEBUG=False" >> ./app/.env
