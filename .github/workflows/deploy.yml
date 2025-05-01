@@ -14,13 +14,13 @@ jobs:
 
       - name: Set deploy variables
         run: |
-          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
-          echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
-          echo "DEBUG=False" >> ./app/.env
-          echo "POSTGRES=True" >> ./app/.env
-          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
-          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
-          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
+          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> /app/.env
+          echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> /app/.env
+          echo "DEBUG=False" >> /app/.env
+          echo "POSTGRES=True" >> /app/.env
+          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> /app/.env
+          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> /app/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> /app/.env
 
       - name: Check deploy environment
         run: |
@@ -32,35 +32,6 @@ jobs:
             exit 1
           fi
 
-      # - name: Set deploy variables
-      #   run: |
-      #     echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> .env
-      #     echo "DEBUG=False" >> .env
-      #     echo "POSTGRES=True" >> .env
-      #     echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> .env
-      #     echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> .env
-      #     echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> .env
-
-      # - name: Check deploy environment
-      #   run: |
-      #     python3 -m pip install -r ./app/requirements/dev.txt
-      #     OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
-      #     echo "$OUTPUT"
-      #     if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-      #       echo "Django deploy warnings found!"
-      #       exit 1
-      #     fi
-        # shell: bash
-
-      # - name: Set deploy variables
-      #   run: |
-      #     echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
-      #     echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
-      #     echo "DEBUG=False" >> ./app/.env
-      #     echo "POSTGRES=True" >> ./app/.env
-      #     echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
-      #     echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
-      #     echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
 
       # - name: Check deploy environment
       #   run: |
