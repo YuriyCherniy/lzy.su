@@ -50,9 +50,9 @@ jobs:
           #   exit 1
           # fi
 
-          if ! OUTPUT=$(DJANGO_SETTINGS_MODULE=lazy_url.settings python3 ./app/manage.py check --deploy --traceback 2>&1); then
-              echo "$OUTPUT"
-          fi
+          # if ! OUTPUT=$(DJANGO_SETTINGS_MODULE=lazy_url.settings python3 ./app/manage.py check --deploy --traceback 2>&1); then
+          #     echo "$OUTPUT"
+          # fi
 
           # if ! $OUTPUT; then
           #   echo "$OUTPUT"
