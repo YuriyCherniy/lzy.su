@@ -65,6 +65,8 @@ jobs:
           echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
           echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
           echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
+          ls -la ./app
+          cat ./app/.env
 
       - name: Checkout code and set pip cache
         uses: actions/checkout@v4
