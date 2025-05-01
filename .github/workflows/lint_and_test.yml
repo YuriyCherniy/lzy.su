@@ -25,11 +25,11 @@ jobs:
           path: /root/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
           restore-keys: ${{ runner.os }}-pip-
+        env:
+          PIP_CACHE_DIR: /root/.cache/pip
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
-        env:
-          PIP_CACHE_DIR: /root/.cache/pip
 
       - name: Lint with flake8
         run: flake8 ./app
@@ -55,6 +55,18 @@ jobs:
           --health-retries 5
 
     steps:
+      - name: Set .env variables
+        run: |
+          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
+          echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
+          echo "DEBUG=False" >> ./app/.env
+          echo "POSTGRES=True" >> ./app/.env
+          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
+          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
+
+      - name: Checkout code and set pip cache
+        uses: actions/checkout@v4
       - uses: actions/checkout@v4
 
       - name: Cache pip dependencies
@@ -63,12 +75,12 @@ jobs:
           path: /root/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
           restore-keys: ${{ runner.os }}-pip-
+        env:
+          PIP_CACHE_DIR: /root/.cache/pip 
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
-        env:
-          PIP_CACHE_DIR: /root/.cache/pip 
-      
+
       - name: Run migrations
         run: python3 ./app/manage.py migrate
 
