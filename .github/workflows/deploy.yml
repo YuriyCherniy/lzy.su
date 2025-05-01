@@ -1,8 +1,9 @@
-name: Deploy by SSH
-on: [workflow_dispatch, push]
+name: Check Production Security Settings and Deploy by SSH
+
+on: [workflow_dispatch]
 
 jobs:
-  check_django_deploy:
+  check_production_security_settings:
     runs-on: ubuntu-24.04
     environment:
       name: Production Environment
@@ -39,19 +40,19 @@ jobs:
             exit 1
           fi
 
-  # deploy:
-  #   needs: [check_django_deploy]
-  #   runs-on: ubuntu-24.04
-  #   steps:
-  #     - name: Execute remote ssh commands using ssh key
-  #       uses: appleboy/ssh-action@v1
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USER }}
-  #         key: ${{ secrets.KEY }}
-  #         port: ${{ secrets.PORT }}
-  #         script: |
-  #           cd ~/lzy.su
-  #           git pull origin docker
-  #           docker compose down
-  #           docker compose up --build -d
+  deploy_by_ssh:
+    needs: [check_production_security_settings]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Execute remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ~/lzy.su
+            git pull origin main
+            docker compose down
+            docker compose up --build -d
