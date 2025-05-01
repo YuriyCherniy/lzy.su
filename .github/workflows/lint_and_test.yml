@@ -43,10 +43,10 @@ jobs:
     services:
       db:
         image: postgres:17.4
-        # env:
-        #   POSTGRES_DB: database
-        #   POSTGRES_USER: user
-        #   POSTGRES_PASSWORD: password
+        env:
+          POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
