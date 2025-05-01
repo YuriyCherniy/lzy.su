@@ -49,6 +49,7 @@ jobs:
 
           #  Fail tests if check --deploy raises WARNINGS
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
+            echo "$OUTPUT"
             echo "Django deploy warnings found!"
             exit 1
           fi
