@@ -37,7 +37,7 @@ jobs:
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
-          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
+          OUTPUT=$(python3 ./app/manage.py check --deploy --traceback 2>&1)
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
             echo "Django deploy warnings found!"
