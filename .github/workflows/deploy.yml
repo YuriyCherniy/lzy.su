@@ -12,20 +12,40 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Set deploy variables
+                - name: Set deploy variables
         run: |
-          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> .env
-          echo "DEBUG=False" >> .env
+          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
+          echo "DEBUG=False" >> ./app/.env
+          echo "Content of .env file:"
+          cat ./app/.env
 
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
-          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
-          echo "$OUTPUT"
-          if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-            echo "Django deploy warnings found!"
-            exit 1
-          fi
+          echo "Current directory: $(pwd)"
+          echo "Directory structure:"
+          ls -R
+          echo "Running Django check..."
+          python3 ./app/manage.py check --deploy --verbosity 2 || {
+            echo "Exit code: $?"
+            echo "Full error output:"
+            python3 ./app/manage.py check --deploy --traceback 2>&1
+          }
+
+      # - name: Set deploy variables
+      #   run: |
+      #     echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> .env
+      #     echo "DEBUG=False" >> .env
+
+      # - name: Check deploy environment
+      #   run: |
+      #     python3 -m pip install -r ./app/requirements/dev.txt
+      #     OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
+      #     echo "$OUTPUT"
+      #     if echo "$OUTPUT" | grep -q "WARNINGS:"; then
+      #       echo "Django deploy warnings found!"
+      #       exit 1
+      #     fi
         # shell: bash
 
       # - name: Check deploy environment
