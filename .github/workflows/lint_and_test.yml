@@ -70,8 +70,6 @@ jobs:
           echo "POSTGRES_DB=test_db" >> ./app/.env
           echo "POSTGRES_USER=test_user" >> ./app/.env
           echo "POSTGRES_PASSWORD=test_password" >> ./app/.env
-          ls -la ./app
-          cat ./app/.env
 
       - name: Cache pip dependencies
         uses: actions/cache@v4

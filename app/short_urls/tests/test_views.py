@@ -59,9 +59,15 @@ class ShortUrlViewTestCase(TestCase):
         )
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
         self.assertEqual(response.status_code, 200)
+######################################################################
 
     def test_url_open_view_status_code_200_spam_false_follow_true(self):
         url_obj = Url.objects.first()
+        print(url_obj.short_url_hash)
+        print()
+        print(reverse('url-open', args=[url_obj.short_url_hash]))
+        print()
+        print('-----------------')
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]), follow=True)
         self.assertEqual(response.status_code, 200)
 
