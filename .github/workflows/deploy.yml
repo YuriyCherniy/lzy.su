@@ -50,7 +50,7 @@ jobs:
           #   exit 1
           # fi
 
-          OUTPUT=$(python3 ./app/manage.py check --deploy --traceback 2>&1)
+          OUTPUT=$(DJANGO_SETTINGS_MODULE=lazy_url.settings python3 ./app/manage.py check --deploy --traceback 2>&1)
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
             echo "Django deploy warnings found!"
