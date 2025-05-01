@@ -12,29 +12,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      # - name: Set deploy variables
-        # env:
-        #   SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
-        #   SECRET_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
-        #   DEBUG: False
-        #   POSTGRES: True
-        #   POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
-        #   POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
-        #   POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
-
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
-          envkey_SECRET_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
-          envkey_DEBUG: False
-          envkey_POSTGRES: True
-          envkey_POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
-          envkey_POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
-          envkey_POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
-          file_name: ./app/.env
+      - name: Set deploy variables
+        run: |
+          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
+          echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
+          echo "DEBUG=False" >> ./app/.env
+          echo "POSTGRES=True" >> ./app/.env
+          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
+          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
           
-      - name: Check deploy environment
+      - name: Check deploy security settings
         run: |
           echo "Проверка .env файла:"
           cat ./app/.env | sed 's/=.*/=***/'
