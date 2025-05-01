@@ -12,52 +12,37 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Set deploy variables
-        env:
-          SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
-          SECRET_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
-          DEBUG: False
-          POSTGRES: True
-          POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
-          POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
+      # - name: Set deploy variables
+        # env:
+        #   SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
+        #   SECRET_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
+        #   DEBUG: False
+        #   POSTGRES: True
+        #   POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
+        #   POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
+        #   POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
 
-        run: |
-          {
-            echo "SECRET_KEY=\"$SECRET_KEY\""
-            echo "SECRET_ADMIN_URL=\"$SECRET_ADMIN_URL\""
-            echo "DEBUG=\"$DEBUG\""
-            echo "POSTGRES=\"$POSTGRES\""
-            echo "POSTGRES_DB=\"$POSTGRES_DB\""
-            echo "POSTGRES_USER=\"$POSTGRES_USER\""
-            echo "POSTGRES_PASSWORD=\"$POSTGRES_PASSWORD\""
-          } > ./app/.env
+      - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
+          envkey_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
+          envkey_DEBUG: False
+          envkey_POSTGRES: True
+          envkey_POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
+          envkey_POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
+          envkey_POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
+          file_name: ./app/.env
           
       - name: Check deploy environment
         run: |
-          echo "Installing requirements..."
           python3 -m pip install -r ./app/requirements/dev.txt
-          
-          echo "Running Django deployment checks..."
-          # Run Django check and capture both stdout and stderr
-          if ! OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1); then
-            echo "ERROR: Django check failed with following output:"
-            echo "----------------------------------------"
-            echo "$OUTPUT"
-            echo "----------------------------------------"
-            exit 1
-          fi
-          
-          # Check for warnings in successful output
+          OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1)
+          echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "WARNINGS:"; then
-            echo "CRITICAL: Django deployment warnings found:"
-            echo "----------------------------------------"
-            echo "$OUTPUT"
-            echo "----------------------------------------"
+            echo "Django deploy warnings found!"
             exit 1
           fi
-          
-          echo "SUCCESS: Django deployment checks passed"
         # shell: bash
 
 
