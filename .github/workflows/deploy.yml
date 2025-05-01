@@ -13,16 +13,26 @@ jobs:
           python-version: '3.11'
 
       - name: Set deploy variables
+        env:
+          SECRET_KEY: ${{ secrets.PRODUCTION_SECRET_KEY }}
+          SECRET_ADMIN_URL: ${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
+          DEBUG: False
+          POSTGRES: True
+          POSTGRES_DB: ${{ secrets.PRODUCTION_POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.PRODUCTION_POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
+
         run: |
-          cat <<EOF > ./app/.env
-          SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}
-          SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}
-          DEBUG=False
-          POSTGRES=True
-          POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}
-          POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}
-          POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
-          EOF
+          {
+            echo "SECRET_KEY=\"$SECRET_KEY\""
+            echo "SECRET_ADMIN_URL=\"$SECRET_ADMIN_URL\""
+            echo "DEBUG=\"$DEBUG\""
+            echo "POSTGRES=\"$POSTGRES\""
+            echo "POSTGRES_DB=\"$POSTGRES_DB\""
+            echo "POSTGRES_USER=\"$POSTGRES_USER\""
+            echo "POSTGRES_PASSWORD=\"$POSTGRES_PASSWORD\""
+          } > .env
+          
       - name: Check deploy environment
         run: |
           python3 -m pip install -r ./app/requirements/dev.txt
