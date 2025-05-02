@@ -22,6 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Make pip cache directory
+        run: |
+          mkdir -p /github/home/.cache/pip
+          chmod 777 /github/home/.cache/pip
+
       - name: Cache pip dependencies
         uses: actions/cache@v4
         with:
@@ -30,11 +35,6 @@ jobs:
           restore-keys: ${{ runner.os }}-pip-
         env:
           PIP_CACHE_DIR: /github/home/.cache/pip
-
-      - name: Make pip cache directory
-        run: |
-          mkdir -p /github/home/.cache/pip
-          chmod 777 /github/home/.cache/pip
 
       - name: Install dependencies
         run: python3 -m pip install -r ./app/requirements/dev.txt
@@ -68,8 +68,6 @@ jobs:
 
       - name: Set .env variables
         run: |
-          mkdir -p /github/home/.cache/pip
-          chmod 777 /github/home/.cache/pip
           echo "SECRET_KEY=usecure-secret-key" >> ./app/.env
           echo "SECRET_ADMIN_URL=admin" >> ./app/.env
           echo "DEBUG=False" >> ./app/.env
@@ -77,6 +75,11 @@ jobs:
           echo "POSTGRES_DB=test_db" >> ./app/.env
           echo "POSTGRES_USER=test_user" >> ./app/.env
           echo "POSTGRES_PASSWORD=test_password" >> ./app/.env
+  
+      - name: Make pip cache directory
+        run: |
+          mkdir -p /github/home/.cache/pip
+          chmod 777 /github/home/.cache/pip
 
       - name: Cache pip dependencies
         uses: actions/cache@v4
