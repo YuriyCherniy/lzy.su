@@ -41,7 +41,7 @@ jobs:
           fi
 
   deploy_by_ssh:
-    # needs: [check_production_security_settings]
+    needs: [check_production_security_settings]
     runs-on: ubuntu-24.04
     steps:
       - name: Execute remote ssh commands using ssh key
