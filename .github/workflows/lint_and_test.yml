@@ -42,7 +42,7 @@ jobs:
     container:
       image: python:3.11
       options: >-
-        --add-host *:127.0.0.1
+        --add-host "*:127.0.0.1"
 
     services:
       db:
