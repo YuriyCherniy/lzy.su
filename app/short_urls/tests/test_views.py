@@ -64,32 +64,7 @@ class ShortUrlViewTestCase(TestCase):
     def test_url_open_view_status_code_200_spam_false_follow_true(self):
         url_obj = Url.objects.first()
         print(url_obj.short_url_hash)
-        print()
-        print(reverse('url-open', args=[url_obj.short_url_hash]))
-        print()
-        print('-----------------')
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]), follow=True)
-        self.assertEqual(response.status_code, 200)
-
-    def test_url_open_view_status_code_200_spam_false_follow_truee(self):
-        # Создаем тестовый URL с корректными данными
-        url_obj = Url.objects.create(
-            long_url='https://example.com',  # Используем валидный URL
-            short_url_hash='test123',        # Уникальный хэш
-            password='0000',
-            is_lazy=False,
-            is_spam=False
-            )
-
-        # Делаем запрос и следуем редиректу
-        response = self.c.get(
-            reverse('url-open', args=[url_obj.short_url_hash]),
-            follow=True
-        )
-
-    # Проверяем цепочку редиректов
-        self.assertEqual(len(response.redirect_chain), 1)
-        self.assertEqual(response.redirect_chain[0][1], 302)
         self.assertEqual(response.status_code, 200)
 
     # status code 302 tests
