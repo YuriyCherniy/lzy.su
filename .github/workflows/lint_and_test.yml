@@ -63,7 +63,6 @@ jobs:
 
       - name: Set .env variables
         run: |
-          # mkdir -p ./app
           echo "SECRET_KEY=usecure-secret-key" >> ./app/.env
           echo "SECRET_ADMIN_URL=admin" >> ./app/.env
           echo "DEBUG=False" >> ./app/.env
