@@ -60,13 +60,13 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
         self.assertEqual(response.status_code, 200)
 
+    # status code 302 tests
     def test_url_open_view_status_code_200_spam_false(self):
         url_obj = Url.objects.first()
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, url_obj.long_url)
 
-    # status code 302 tests
     def test_url_open_view_status_code_302_is_spam_false(self):
         url_obj = Url.objects.first()
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
