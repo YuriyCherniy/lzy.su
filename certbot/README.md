@@ -1,7 +1,7 @@
 To obtain certificates, before running docker compose to start the whole project, run the command:
 
 ```
-docker compose run --rm --service-ports certbot certonly --standalone -d mydomain.ru -d www.mydomain.ru
+docker compose run --rm --service-ports certbot certonly --standalone -d lzy.su -d www.lzy.su
 ```
 
 To renew existing certificates manually, when the project is already running (Nginx must be running, and reloaded after renewal), run the command:
