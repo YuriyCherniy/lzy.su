@@ -1,9 +1,35 @@
-version: "3.9"
-   
 services:
-  web:
-    build: .
+  app:
+    build: ./app
     volumes:
-      - ./static:/app/static
-    network_mode: "host"
-    restart: unless-stopped
+      - static_data:/app/static
+    restart: always
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    volumes:
+      - static_data:/app/static
+      - letsencrypt_data:/etc/letsencrypt
+      - /var/log/nginx/:/var/log/nginx
+    restart: always
+
+  db:
+    image: postgres:15.12
+    env_file:
+    - ./app/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  static_data:
+  postgres_data:
+  letsencrypt_data:
+    name: lzy_su_letsencrypt_data
+
+

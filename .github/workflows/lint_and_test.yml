@@ -1,0 +1,101 @@
+name: Project Lint and Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'app/Dockerfile'
+      - 'nginx/*'
+      - 'certbot/*'
+      - 'docker-compose.yml'
+      - '.github/*'
+
+jobs:
+  linting:
+    runs-on: ubuntu-24.04
+    environment:
+      name: Production Environment
+    container:
+      image: python:3.11
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make pip cache directory
+        run: |
+          mkdir -p /github/home/.cache/pip
+          chmod 755 /github/home/.cache/pip
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: /github/home/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+        env:
+          PIP_CACHE_DIR: /github/home/.cache/pip
+
+      - name: Install dependencies
+        run: python3 -m pip install -r ./app/requirements/dev.txt
+
+      - name: Lint with flake8
+        run: flake8 ./app
+
+  testing:
+    needs: [linting]
+    runs-on: ubuntu-24.04
+    container:
+      image: python:3.11
+
+    services:
+      db:
+        image: postgres:17.4
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code and set pip cache
+        uses: actions/checkout@v4
+
+      - name: Set .env variables
+        run: |
+          echo "SECRET_KEY=usecure-secret-key" >> ./app/.env
+          echo "SECRET_ADMIN_URL=admin" >> ./app/.env
+          echo "DEBUG=False" >> ./app/.env
+          echo "POSTGRES=True" >> ./app/.env
+          echo "POSTGRES_DB=test_db" >> ./app/.env
+          echo "POSTGRES_USER=test_user" >> ./app/.env
+          echo "POSTGRES_PASSWORD=test_password" >> ./app/.env
+  
+      - name: Make pip cache directory
+        run: |
+          mkdir -p /github/home/.cache/pip
+          chmod 755 /github/home/.cache/pip
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: /github/home/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements/dev.txt') }}
+          restore-keys: ${{ runner.os }}-pip-
+        env:
+          PIP_CACHE_DIR: /github/home/.cache/pip 
+
+      - name: Install dependencies
+        run: python3 -m pip install -r ./app/requirements/dev.txt
+
+      - name: Run migrations
+        run: python3 ./app/manage.py migrate
+
+      - name: Run tests
+        run: python3 ./app/manage.py test short_urls core users
+

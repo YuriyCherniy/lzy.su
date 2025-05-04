@@ -1,0 +1,5 @@
+-r base.txt
+
+# gunicorn==21.0.1
+
+gunicorn==23.0.0

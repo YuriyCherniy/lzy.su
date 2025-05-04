@@ -1,4 +1,3 @@
-from django.contrib.auth.hashers import make_password
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -39,7 +38,7 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.get(
             reverse(
                 'url-information', kwargs={'short_url_hash': url_obj.short_url_hash, 'password': url_obj.password})
-            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_url_delete_view_status_code_200(self):
@@ -47,7 +46,7 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.get(
             reverse(
                 'url-information', kwargs={'short_url_hash': url_obj.short_url_hash, 'password': url_obj.password})
-            )
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_url_open_view_status_code_200_is_spam_true(self):
@@ -61,12 +60,13 @@ class ShortUrlViewTestCase(TestCase):
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
         self.assertEqual(response.status_code, 200)
 
-    def test_url_open_view_status_code_200_spam_false_follow_true(self):
-        url_obj = Url.objects.first()
-        response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]), follow=True)
-        self.assertEqual(response.status_code, 200)
-
     # status code 302 tests
+    def test_url_open_view_status_code_200_spam_false(self):
+        url_obj = Url.objects.first()
+        response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, url_obj.long_url)
+
     def test_url_open_view_status_code_302_is_spam_false(self):
         url_obj = Url.objects.first()
         response = self.c.get(reverse('url-open', args=[url_obj.short_url_hash]))

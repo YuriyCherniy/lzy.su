@@ -3,6 +3,7 @@ from pathlib import Path
 
 import environ
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,18 +23,20 @@ DEBUG = env.bool('DEBUG')
 
 # Security setting for production.
 if not DEBUG:
-    SECURE_HSTS_SECONDS = 31536000
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
     ALLOWED_HOSTS = ['lzy.su']
 else:
     ALLOWED_HOSTS = ['*']
 
+#  Disable security checks that are already set in Nginx config.
+SILENCED_SYSTEM_CHECKS = [
+    'security.W004',  # HSTS Strict-Transport-Security header already set in lzy.su.conf
+    'security.W008',  # SSL redirect already set in lzy.su.conf
+]
+
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,7 +66,8 @@ ROOT_URLCONF = 'lazy_url.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        # 'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,8 +101,8 @@ POSTGRES_DB = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
-        'PASSWORD': env('POSTGRES_USER_PASSWORD'),
-        'HOST': 'localhost',
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': 'db',
         'PORT': 5432,
     }
 }

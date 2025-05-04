@@ -1,0 +1,11 @@
+services:
+  certbot:
+    image: certbot/certbot
+    ports:
+      - "80:80"
+    volumes:
+      - letsencrypt_data:/etc/letsencrypt
+
+volumes:
+  letsencrypt_data:
+    name: lzy_su_letsencrypt_data

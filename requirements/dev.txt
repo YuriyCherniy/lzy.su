@@ -1,4 +1,0 @@
--r base.txt
-
-flake8==7.0.0
-isort==5.13.2
