@@ -26,7 +26,7 @@ git clone https://github.com/YuriyCherniy/lzy.su.git
 ```
 Перейдите в рабочую директорию:
 ```
-cd lzy.su/
+cd ./lzy.su/app/
 ```
 Установите зависимости:
 ```
