@@ -26,7 +26,7 @@ git clone https://github.com/YuriyCherniy/lzy.su.git
 ```
 cd to working directory:
 ```
-cd ./app/lzy.su/
+cd ./lzy.su/app/
 ```
 Install dependencies:
 ```
