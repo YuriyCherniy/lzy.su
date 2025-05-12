@@ -1,5 +1,8 @@
 services:
   app:
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     build: ./app
     volumes:
       - static_data:/app/static
