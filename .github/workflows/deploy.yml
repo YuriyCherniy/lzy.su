@@ -1,6 +1,10 @@
 name: Check Production Security Settings and Deploy by SSH
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
 
 jobs:
   check_production_security_settings:
