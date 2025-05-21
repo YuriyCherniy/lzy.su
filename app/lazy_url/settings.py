@@ -28,7 +28,6 @@ if not DEBUG:
     ALLOWED_HOSTS = ['lzy.su']
 else:
     ALLOWED_HOSTS = ['*']
-    CSRF_TRUSTED_ORIGINS = ['https://lzy.su', 'https://there-is-a-bug.ru']
 
 #  Disable security checks that are already set in Nginx config.
 SILENCED_SYSTEM_CHECKS = [
