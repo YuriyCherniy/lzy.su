@@ -26,8 +26,10 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     ALLOWED_HOSTS = ['lzy.su']
+    CSRF_TRUSTED_ORIGINS = ['https://lzy.su']
 else:
     ALLOWED_HOSTS = ['*']
+    CSRF_TRUSTED_ORIGINS = ['*']
 
 #  Disable security checks that are already set in Nginx config.
 SILENCED_SYSTEM_CHECKS = [
