@@ -21,6 +21,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG')
 
+CSRF_TRUSTED_ORIGINS = ['https://lzy.su', 'https://there-is-a-bug.ru']
+
 # Security setting for production.
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
