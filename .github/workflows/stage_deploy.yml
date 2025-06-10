@@ -54,11 +54,9 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
+          run: docker compose version
           script: |
             cd ~/lzy.su
             git pull origin main
             docker compose down
-            echo 'TEST'
-            docker compose version
-            echo 'TEST'
             docker compose up --build --profile stage -d
