@@ -1,6 +1,7 @@
 name: Check Production Security Settings and Deploy by SSH
 
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
 
 jobs:
   check_production_security_settings:
@@ -55,4 +56,4 @@ jobs:
             cd ~/lzy.su
             git pull origin main
             docker compose down
-            docker compose up --build -d
+            docker compose up --build --profile prod -d

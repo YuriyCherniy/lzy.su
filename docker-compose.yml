@@ -5,8 +5,10 @@ services:
       - static_data:/app/static
     restart: always
 
-  nginx:
-    build: ./nginx
+  nginx-stage:
+    build:
+      context: ./nginx/stage
+      dockerfile: Dockerfile
     ports:
       - "80:80"
       - "443:443"
@@ -17,6 +19,25 @@ services:
       - letsencrypt_data:/etc/letsencrypt
       - /var/log/nginx/:/var/log/nginx
     restart: always
+    profiles:
+      - stage
+
+  nginx-prod:
+    build:
+      context: ./nginx/prod
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    volumes:
+      - static_data:/app/static
+      - letsencrypt_data:/etc/letsencrypt
+      - /var/log/nginx/:/var/log/nginx
+    restart: always
+    profiles:
+      - prod
 
   db:
     image: postgres:15.12
