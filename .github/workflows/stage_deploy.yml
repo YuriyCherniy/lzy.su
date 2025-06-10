@@ -48,7 +48,8 @@ jobs:
       name: Stage Environment
     steps:
       - name: Execute remote ssh commands using ssh key
-        run: docker compose version
+        run: |
+          docker compose version
 
         uses: appleboy/ssh-action@v1
         with:
