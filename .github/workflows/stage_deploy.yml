@@ -50,8 +50,8 @@ jobs:
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
         with:
-          host: $HOST
-          port: $PORT
+          host: ${{ env.HOST }}
+          port: ${{ env.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
