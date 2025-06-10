@@ -1,0 +1,59 @@
+name: Check Production Security Settings and Deploy by SSH
+
+on:
+  workflow_dispatch:
+
+jobs:
+  check_production_security_settings:
+    runs-on: ubuntu-24.04
+    environment:
+      name: Production Environment
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set .env variables
+        run: |
+          echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
+          echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
+          echo "DEBUG=False" >> ./app/.env
+          echo "POSTGRES=True" >> ./app/.env
+          echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
+          echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
+          
+      - name: Check deploy security settings
+        run: |
+          python3 -m pip install -r ./app/requirements/dev.txt
+
+          #  Capture and show errors raised by Django itself
+          if ! OUTPUT=$(python3 ./app/manage.py check --deploy 2>&1); then
+              echo "$OUTPUT"
+              exit 1
+          fi
+
+          #  Fail tests if check --deploy raises WARNINGS
+          if echo "$OUTPUT" | grep -q "WARNINGS:"; then
+            echo "$OUTPUT"
+            echo "Django deploy warnings found!"
+            exit 1
+          fi
+
+  deploy_by_ssh:
+    needs: [check_production_security_settings]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Execute remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ~/lzy.su
+            git pull origin main
+            docker compose down
+            docker compose up --build --profile prod -d
