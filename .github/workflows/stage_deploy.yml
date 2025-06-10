@@ -48,13 +48,14 @@ jobs:
       name: Stage Environment
     steps:
       - name: Execute remote ssh commands using ssh key
+        run: docker compose version
+
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          run: docker compose version
           script: |
             cd ~/lzy.su
             git pull origin main
