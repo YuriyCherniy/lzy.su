@@ -7,7 +7,7 @@ jobs:
   check_production_security_settings:
     runs-on: ubuntu-24.04
     environment:
-      name: Production Environment
+      name: Stage Environment
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -44,14 +44,16 @@ jobs:
   deploy_by_ssh:
     needs: [check_production_security_settings]
     runs-on: ubuntu-24.04
+    environment:
+      name: Stage Environment
     steps:
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
+          host: $HOST
+          port: $PORT
           username: ${{ secrets.USER }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/lzy.su
             git pull origin main
