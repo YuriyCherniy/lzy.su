@@ -1,4 +1,4 @@
-name: Check Production Security Settings and Deploy by SSH
+name: Check Stage Security Settings and Deploy by SSH
 
 on:
   workflow_dispatch:
