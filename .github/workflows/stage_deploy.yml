@@ -58,6 +58,7 @@ jobs:
         with:
           name: .env
           path: ~/downloads
+        run: scp /downloads/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
 
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
@@ -67,7 +68,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            scp /downloads/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
             cd ~/lzy.su
             git pull origin main
             docker compose --profile stage down
