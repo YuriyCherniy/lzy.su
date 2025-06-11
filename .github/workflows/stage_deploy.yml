@@ -41,12 +41,24 @@ jobs:
             exit 1
           fi
 
+      - name: Upload file as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: .env
+          path: ./app/.env
+
   deploy_by_ssh:
     needs: [check_production_security_settings]
     runs-on: ubuntu-24.04
     environment:
       name: Stage Environment
     steps:
+      - name: Get .env artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: .env
+          path: ~/downloads
+
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
         with:
@@ -55,6 +67,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            scp /downloads/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
             cd ~/lzy.su
             git pull origin main
             docker compose --profile stage down
