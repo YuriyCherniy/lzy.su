@@ -58,6 +58,8 @@ jobs:
         with:
           name: .env
           path: ~/downloads
+      
+      - name: Upload .env artifact to remote host
         run: scp /downloads/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
 
       - name: Execute remote ssh commands using ssh key
