@@ -58,4 +58,4 @@ jobs:
             cd ~/lzy.su
             git pull origin main
             docker compose down
-            docker compose up --profile stage -d
+            docker compose up -d
