@@ -57,14 +57,5 @@ jobs:
           script: |
             cd ~/lzy.su
             git pull origin main
-
-            echo "SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" >> ./app/.env
-            echo "SECRET_ADMIN_URL=${{ secrets.PRODUCTION_SECRET_ADMIN_URL }}" >> ./app/.env
-            echo "DEBUG=False" >> ./app/.env
-            echo "POSTGRES=True" >> ./app/.env
-            echo "POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}" >> ./app/.env
-            echo "POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}" >> ./app/.env
-            echo "POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}" >> ./app/.env
-
             docker compose --profile stage down
             docker compose --profile stage up --build -d
