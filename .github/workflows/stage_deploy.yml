@@ -42,7 +42,7 @@ jobs:
           fi
 
       - name: Upload file as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: .env
           path: ./app/.env
@@ -54,7 +54,7 @@ jobs:
       name: Stage Environment
     steps:
       - name: Get .env artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: .env
           path: ~/downloads
