@@ -57,5 +57,5 @@ jobs:
           script: |
             cd ~/lzy.su
             git pull origin main
-            docker compose down
-            docker compose up --build --profile stage -d
+            docker compose --profile stage down
+            docker compose --profile stage up --build -d
