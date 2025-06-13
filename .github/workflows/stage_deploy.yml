@@ -49,7 +49,7 @@ jobs:
 
       - name: tests
         run: |
-          ls .app/
+          ls ./app
 
 
   deploy_by_ssh:
