@@ -45,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: env-file
-          path: ~/lzy.su/app/.env
+          path: ./app/.env
 
       - name: tests
         run: |
