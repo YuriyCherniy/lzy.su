@@ -47,6 +47,10 @@ jobs:
           name: env-file
           path: ~/lzy.su/app/.env
 
+      - name: tests
+        run: pwd
+        run: la -la
+
 
   deploy_by_ssh:
     needs: [check_production_security_settings]
