@@ -60,8 +60,8 @@ jobs:
           name: env-file
           path: /home/runner/artifacts/
       
-      - name: Upload .env artifact to remote host
-        run: scp /home/runner/artifacts/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
+      # - name: Upload .env artifact to remote host
+      #   run: scp /home/runner/artifacts/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
 
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
@@ -71,6 +71,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            scp /home/runner/artifacts/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
             cd ~/lzy.su
             git pull origin main
             docker compose --profile stage down
