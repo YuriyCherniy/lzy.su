@@ -50,7 +50,7 @@ jobs:
       - name: tests
         run: |
           pwd
-          la -la
+          ls -la
 
 
   deploy_by_ssh:
