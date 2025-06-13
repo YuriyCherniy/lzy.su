@@ -67,8 +67,8 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "/home/runner/artifacts/.env"
-          target: "~/lzy.su/app/"
+          source: /home/runner/artifacts/.env
+          target: ~/lzy.su/app/
           overwrite: true
 
       - name: Execute remote ssh commands using ssh key
