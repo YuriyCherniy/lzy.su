@@ -57,7 +57,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: env-file
-          path: ~/downloads
+          path: /downloads
       
       - name: Upload .env artifact to remote host
         run: scp /downloads/env-file ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
