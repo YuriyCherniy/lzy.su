@@ -60,7 +60,7 @@ jobs:
           path: /downloads
       
       - name: Upload .env artifact to remote host
-        run: scp /downloads/env-file ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
+        run: scp /downloads/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
 
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
