@@ -69,6 +69,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: "/home/runner/artifacts/.env"
           target: ~/lzy.su/app/
+          scripts: |
+            ls -la /home/runner/artifacts/
 
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
