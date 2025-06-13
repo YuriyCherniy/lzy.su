@@ -48,8 +48,9 @@ jobs:
           path: ~/lzy.su/app/.env
 
       - name: tests
-        run: pwd
-        run: la -la
+        run: |
+          pwd
+          la -la
 
 
   deploy_by_ssh:
