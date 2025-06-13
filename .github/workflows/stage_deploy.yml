@@ -50,6 +50,7 @@ jobs:
       - name: tests
         run: |
           ls ./app
+          cat ./app/.env
 
 
   deploy_by_ssh:
