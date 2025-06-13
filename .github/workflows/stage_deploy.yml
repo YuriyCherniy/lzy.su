@@ -49,10 +49,7 @@ jobs:
 
       - name: tests
         run: |
-          pwd
-          ls -la
-          cd app
-          ls -la
+          ls .app/
 
 
   deploy_by_ssh:
