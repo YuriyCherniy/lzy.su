@@ -51,6 +51,8 @@ jobs:
         run: |
           pwd
           ls -la
+          cd app
+          ls -la
 
 
   deploy_by_ssh:
