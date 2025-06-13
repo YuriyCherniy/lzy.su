@@ -65,7 +65,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
-          username: ${{ secrets.USERN }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "/home/runner/artifacts/.env"
           target: ~/lzy.su/app/.env
