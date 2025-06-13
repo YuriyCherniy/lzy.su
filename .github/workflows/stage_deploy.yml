@@ -58,10 +58,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: env-file
-          path: /home/runner/artifacts/
+          path: /
       
       - name: Upload .env artifact to remote host
-        run: scp /home/runner/artifacts/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
+        run: scp /.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/lzy.su/app/.env
 
       - name: Execute remote ssh commands using ssh key
         uses: appleboy/ssh-action@v1
