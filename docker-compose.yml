@@ -52,3 +52,4 @@ volumes:
   postgres_data:
   letsencrypt_data:
     name: lzy_su_letsencrypt_data
+    external: true
