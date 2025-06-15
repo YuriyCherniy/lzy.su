@@ -58,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: env-file
-          path: /home/runner/artifacts/
+          path: .env-temp/
       
       - name: Copy .env file via ssh
         uses: appleboy/scp-action@v1
@@ -67,8 +67,8 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: /home/runner/artifacts/.env
-          target: ~/lzy.su/app/
+          source: ".env-temp/.env"
+          target: "~/lzy.su/app/.env"
           overwrite: true
 
       - name: Execute remote ssh commands using ssh key
