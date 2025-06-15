@@ -23,7 +23,7 @@ jobs:
           POSTGRES=True
           POSTGRES_DB=${{ secrets.PRODUCTION_POSTGRES_DB }}
           POSTGRES_USER=${{ secrets.PRODUCTION_POSTGRES_USER }}
-          POSTGRES_PASSWORD=${{ secrets.PRODUCTION_PASSWORD }}
+          POSTGRES_PASSWORD=${{ secrets.PRODUCTION_POSTGRES_PASSWORD }}
           EOF
 
       - name: Check deploy security settings
