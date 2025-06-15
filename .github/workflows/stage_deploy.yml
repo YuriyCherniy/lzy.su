@@ -67,7 +67,7 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./.env"
+          source: "/home/runner/artifacts/env-file/.env"
           target: ~/lzy.su/app/
           overwrite: true
 
