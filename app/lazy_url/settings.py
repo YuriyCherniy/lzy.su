@@ -26,7 +26,7 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     ALLOWED_HOSTS = ['lzy.su', 'stage.lzy.su']
-    CSRF_TRUSTED_ORIGINS = ['https://lzy.su']
+    CSRF_TRUSTED_ORIGINS = ['https://lzy.su', 'https://stage.lzy.su']
 else:
     ALLOWED_HOSTS = ['stage.lzy.su']
     CSRF_TRUSTED_ORIGINS = ['https://stage.lzy.su']
