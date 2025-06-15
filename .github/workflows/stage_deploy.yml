@@ -59,9 +59,6 @@ jobs:
         with:
           name: env-file
           path: /home/runner/artifacts/
-
-      - name: LS tests
-        run: ls -la /home/runner/artifacts/
       
       - name: Copy .env file via ssh
         uses: appleboy/scp-action@v1
@@ -70,7 +67,7 @@ jobs:
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: /home/runner/artifacts/.env
+          source: "/home/runner/artifacts/.env"
           target: ~/lzy.su/app/
           overwrite: true
 
