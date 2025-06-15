@@ -25,7 +25,7 @@ DEBUG = env.bool('DEBUG')
 if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    ALLOWED_HOSTS = ['lzy.su']
+    ALLOWED_HOSTS = ['lzy.su', 'stage.lzy.su']
     CSRF_TRUSTED_ORIGINS = ['https://lzy.su']
 else:
     ALLOWED_HOSTS = ['stage.lzy.su']
