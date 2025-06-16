@@ -85,4 +85,4 @@ jobs:
             cd ~/lzy.su
             git pull origin main
             docker compose --profile prod down
-            docker compose --profile prod up --build -d --network=host
+            docker compose --profile prod up --build -d
