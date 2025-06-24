@@ -24,6 +24,7 @@ def main():
         os.chdir(certbot_dir)
     except OSError as e:
         log_err(f"Failed to switch to certbot directory! {e}")
+        log("Error occurred. See error log.")
         sys.exit(1)
 
     log("Running certbot renew (nginx will reload only if certificate is renewed)...")
@@ -44,6 +45,7 @@ def main():
 
     if proc.returncode != 0:
         log_err("Certificate renewal failed! Certbot output:")
+        log("Error occurred. See error log.")
         print(proc.stdout, file=sys.stderr)
         sys.exit(2)
     else:
