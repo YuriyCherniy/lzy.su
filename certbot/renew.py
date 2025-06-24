@@ -3,19 +3,23 @@ import sys
 import subprocess
 from datetime import datetime
 
+
 def now():
     return datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
 
 def log(msg):
     print(f"[ {now()} ] {msg}")
 
+
 def log_err(msg):
     print(f"[ {now()} ] ERROR: {msg}", file=sys.stderr)
+
 
 def main():
     log("=== Certificate renewal process started ===")
 
-    certbot_dir = os.path.expanduser("~/lzy.su/certbot")
+    certbot_dir = os.path.expanduser("/home/very_lazy/lzy.su/certbot")
     try:
         os.chdir(certbot_dir)
     except OSError as e:
@@ -46,6 +50,7 @@ def main():
         log("Certificate renewal process finished. If certificate was renewed, nginx was reloaded.")
 
     log("=== Certificate renewal process finished ===")
+
 
 if __name__ == "__main__":
     main()
