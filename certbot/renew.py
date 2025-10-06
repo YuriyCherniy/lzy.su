@@ -32,7 +32,7 @@ def main():
     deploy_hook = (
         f"echo '[ {now()} ] Deploy hook: reloading nginx...' && "
         f"cd {os.path.expanduser('~')}/lzy.su && "
-        "docker compose exec nginx nginx -s reload && "
+        "docker compose exec lzysu-nginx-prod nginx -s reload && "
         f"echo '[ {now()} ] Deploy hook: nginx reload completed.'"
     )
 
